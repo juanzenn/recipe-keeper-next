@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+#footer-cta {
+  width: 100%;
+  height: 80vh;
+
+  background-image: url('/food-plate.jpg');
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+
+  background-color: rgba(0, 0, 0, 0.7);
+  background-blend-mode: multiply;
+}
+
+.users--image {
+  width: 100%;
+  height: 80vh;
+
+  background-image: url('/customers.jpg');
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+
+  background-color: rgba(255, 0, 0, 0.3);
+  background-blend-mode: multiply;
+}
