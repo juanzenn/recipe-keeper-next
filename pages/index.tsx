@@ -11,14 +11,10 @@ import FeaturesSection from '@components/Index/FeaturesSection';
 import ReviewSection from '@components/Index/ReviewSection';
 
 export default function Index() {
-  const { user, error, isLoading } = useUser();
+  const { error, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
-
-  if (user) {
-    return;
-  }
 
   return (
     <>
@@ -26,7 +22,7 @@ export default function Index() {
         <title>Recipe Keeper</title>
       </Head>
       <main>
-        <MainNavigation user={user} />
+        <MainNavigation />
 
         <header
           id='header'
