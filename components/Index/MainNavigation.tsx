@@ -2,9 +2,8 @@ import { Button } from '@components/common/Button';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
-interface Props {
-  user: any;
-}
+import { TextAlignJustified } from 'akar-icons';
+import { useUser } from '@auth0/nextjs-auth0';
 
 interface NavigationLink {
   link: string;
@@ -23,7 +22,7 @@ function NavigationLink({ link, label }: NavigationLink) {
   );
 }
 
-export default function MainNavigation({ user }: Props) {
+export default function MainNavigation() {
   const links: NavigationLink[] = [
     {
       link: '/#header',
@@ -38,6 +37,8 @@ export default function MainNavigation({ user }: Props) {
       label: 'Customers',
     },
   ];
+
+  const { user } = useUser();
 
   const [active, setActive] = useState(true);
 
@@ -56,7 +57,7 @@ export default function MainNavigation({ user }: Props) {
           name='open-or-close-menu'
           className='lg:hidden'
           onClick={() => setActive(!active)}>
-          Open/Close
+          <TextAlignJustified size={24} />
         </button>
       </section>
       <section
