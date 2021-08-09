@@ -102,6 +102,7 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             text={'Dashboard'}
             icon={<Home size={24} />}
             handleClick={() => {
+              setOpen(false);
               setView('dashboard');
             }}
             selected={view === 'dashboard' ? true : false}
@@ -112,6 +113,7 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             text={'Recipes'}
             icon={<Book size={24} />}
             handleClick={() => {
+              setOpen(false);
               setView('recipes');
             }}
             selected={view === 'recipes' || view === 'addRecipe' ? true : false}
@@ -122,6 +124,7 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             text={'Discover'}
             icon={<Globe size={24} />}
             handleClick={() => {
+              setOpen(false);
               setView('discover');
             }}
             selected={view === 'discover' ? true : false}
@@ -132,6 +135,7 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             text={'Meal Planner'}
             icon={<Utensils size={24} />}
             handleClick={() => {
+              setOpen(false);
               setView('mealPlanner');
             }}
             selected={view === 'mealPlanner' ? true : false}
@@ -146,6 +150,7 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             text={'User Settings'}
             icon={<Person size={24} />}
             handleClick={() => {
+              setOpen(false);
               setView('userSettings');
             }}
             selected={view === 'userSettings' ? true : false}

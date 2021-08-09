@@ -36,7 +36,7 @@ export default function App() {
               <div className='w-8 h-8 rounded-full bg-red-500'></div>
             </div>
             <section className={`w-3/4 mx-auto`}>
-              <Views view={view} setView={setView} />
+              <Views view={view} setView={setView} setOpen={setOpen} />
             </section>
           </section>
         </main>

@@ -6,6 +6,7 @@ import ViewHeader from '@components/common/ViewHeader';
 
 export interface ViewProps {
   setView: (value: string) => void;
+  setOpen: (value: boolean) => void;
 }
 
 export interface DashboardRecipeShowcaseProps {
@@ -36,9 +37,7 @@ function DashboardRecipeShowcase({
   );
 }
 
-export default function Dashboard({ setView }: ViewProps) {
-  const { user } = useUser();
-
+export default function Dashboard({ setView, setOpen }: ViewProps) {
   return (
     <main>
       <ViewHeader
@@ -67,19 +66,28 @@ export default function Dashboard({ setView }: ViewProps) {
             <section className='space-y-6'>
               <Button
                 className='px-6 py-2 w-full'
-                onClick={() => setView('addRecipe')}>
+                onClick={() => {
+                  setOpen(false);
+                  setView('addRecipe');
+                }}>
                 Add a recipe
               </Button>
 
               <ButtonOutlined
                 className='px-6 py-2 w-full'
-                onClick={() => setView('recipes')}>
+                onClick={() => {
+                  setOpen(false);
+                  setView('recipes');
+                }}>
                 All my recipes
               </ButtonOutlined>
 
               <ButtonOutlined
                 className='px-6 py-2 w-full'
-                onClick={() => setView('mealPlanner')}>
+                onClick={() => {
+                  setOpen(false);
+                  setView('mealPlanner');
+                }}>
                 Meal Planner
               </ButtonOutlined>
             </section>
