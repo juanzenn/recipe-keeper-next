@@ -90,8 +90,8 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
     <nav
       className={
         open
-          ? `h-screen px-4 pt-4 pb-6 flex flex-col justify-between flex-shrink-0 w-1/5 border-r border-gray-200`
-          : `h-screen pt-4 pb-6 flex flex-col items-center flex-shrink-0 w-[5%] border-r border-gray-200`
+          ? `fixed top-0 h-screen w-1/5 px-4 pt-4 pb-6 flex flex-col justify-between flex-shrink-0  border-r border-gray-200 bg-white`
+          : `fixed top-0 h-screen w-[5%] pt-4 pb-6 flex flex-col items-center flex-shrink-0  border-r border-gray-200 bg-white`
       }>
       <section>
         <NavigationBrand open={open} setOpen={setOpen} />
@@ -113,7 +113,7 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             handleClick={() => {
               setView('recipes');
             }}
-            selected={view === 'recipes' ? true : false}
+            selected={view === 'recipes' || view === 'addRecipe' ? true : false}
           />
           <NavigationItem
             open={open}
