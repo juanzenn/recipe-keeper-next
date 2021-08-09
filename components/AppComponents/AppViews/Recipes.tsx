@@ -8,6 +8,7 @@ import Input from '@components/common/Input';
 import Dropdown from '@components/common/Dropdown';
 
 import { DashboardRecipeShowcaseProps } from './Dashboard';
+import { ViewProps } from './Views';
 
 interface NavigationContainerProps {
   children?: string | React.ReactNode;
@@ -62,7 +63,7 @@ function DashboardRecipeShowcase({
   );
 }
 
-export default function Recipes() {
+export default function Recipes({ setView, setOpen }: ViewProps) {
   return (
     <main className='pb-24'>
       <ViewHeader title='Recipes' subtitle='All your recipes in one place.' />
@@ -72,7 +73,12 @@ export default function Recipes() {
           <Text type='h3' className='w-full'>
             Add a recipe
           </Text>
-          <ButtonSecondary className='w-full h-[max-content] px-6 py-2 text-primary-500 flex gap-2 items-center justify-center'>
+          <ButtonSecondary
+            onClick={() => {
+              setView('addRecipe');
+              setOpen(false);
+            }}
+            className='w-full h-[max-content] px-6 py-2 text-primary-500 flex gap-2 items-center justify-center'>
             Add
             <CirclePlus size={20} />
           </ButtonSecondary>
