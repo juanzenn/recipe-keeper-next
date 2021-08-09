@@ -12,18 +12,17 @@ interface Props {
   setOpen: (value: boolean) => void;
 }
 
-// function switchView(
-//   view: string,
-//   setView: (value: string) => void,
-//   setOpen: (value: boolean) => void
-// ): React.ReactNode {}
+export interface ViewProps {
+  setView: (value: string) => void;
+  setOpen: (value: boolean) => void;
+}
 
 export default function Views({ view, setView, setOpen }: Props) {
   switch (view) {
     case 'dashboard':
       return <Dashboard setView={setView} setOpen={setOpen} />;
     case 'recipes':
-      return <Recipes />;
+      return <Recipes setView={setView} setOpen={setOpen} />;
     case 'addRecipe':
       return <AddRecipe />;
     case 'discover':

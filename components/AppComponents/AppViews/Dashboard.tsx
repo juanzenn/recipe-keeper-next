@@ -3,11 +3,7 @@ import Text from '@components/common/Text';
 import { Button, ButtonOutlined } from '@components/common/Button';
 import { useUser } from '@auth0/nextjs-auth0';
 import ViewHeader from '@components/common/ViewHeader';
-
-export interface ViewProps {
-  setView: (value: string) => void;
-  setOpen: (value: boolean) => void;
-}
+import { ViewProps } from './Views';
 
 export interface DashboardRecipeShowcaseProps {
   title: string;
