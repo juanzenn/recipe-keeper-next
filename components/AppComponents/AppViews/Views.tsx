@@ -9,12 +9,13 @@ import UserSettings from './UserSettings';
 interface Props {
   view: string;
   setView: (value: string) => void;
+  setOpen: (value: boolean) => void;
 }
 
-export default function Views({ view, setView }: Props) {
+export default function Views({ view, setView, setOpen }: Props) {
   switch (view) {
     case 'dashboard':
-      return <Dashboard setView={setView} />;
+      return <Dashboard setView={setView} setOpen={setOpen} />;
     case 'recipes':
       return <Recipes />;
     case 'addRecipe':
