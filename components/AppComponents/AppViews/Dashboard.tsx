@@ -1,12 +1,14 @@
 import React from 'react';
 import Text from '@components/common/Text';
 import { Button, ButtonOutlined } from '@components/common/Button';
+import { useUser } from '@auth0/nextjs-auth0';
+import ViewHeader from '@components/common/ViewHeader';
 
 export interface ViewProps {
   setView: (value: string) => void;
 }
 
-interface DashboardRecipeShowcaseProps {
+export interface DashboardRecipeShowcaseProps {
   title: string;
   recipeTitle: string;
   recipeLink?: string;
@@ -35,18 +37,16 @@ function DashboardRecipeShowcase({
 }
 
 export default function Dashboard({ setView }: ViewProps) {
+  const { user } = useUser();
+
   return (
     <main>
-      <section className='mb-4'>
-        <Text type='h2'>Dashboard</Text>
-        <Text type='paragraph'>A recommended recipe every day.</Text>
-      </section>
+      <ViewHeader
+        title='Dashboard'
+        subtitle='A recommended recipe every day.'
+      />
 
       <section>
-        <header className='mb-8'>
-          <Text type='h3'>{`Welcome back, Juan!`}</Text>
-        </header>
-
         <section className='grid grid-cols-3 gap-4 items-center'>
           <DashboardRecipeShowcase
             title={'What to eat?'}

@@ -21,6 +21,7 @@ export default function App() {
         <Head>
           <title>Recipe Keeper - App</title>
         </Head>
+
         <main className='flex'>
           <AppNavigation
             open={open}
@@ -28,7 +29,8 @@ export default function App() {
             view={view}
             setView={setView}
           />
-          <div className={`w-full h-screen overflow-y-scroll`}>
+
+          <section className={`w-full h-screen overflow-y-scroll`}>
             <div className='w-full px-6 py-4 flex justify-end items-center gap-4'>
               <Text type='paragraph'>Welcome back, {user.name}!</Text>
               <div className='w-8 h-8 rounded-full bg-red-500'></div>
@@ -36,7 +38,7 @@ export default function App() {
             <section className={`w-3/4 mx-auto`}>
               <Views view={view} setView={setView} />
             </section>
-          </div>
+          </section>
         </main>
       </React.Fragment>
     );

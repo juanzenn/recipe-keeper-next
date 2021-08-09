@@ -106,6 +106,7 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             }}
             selected={view === 'dashboard' ? true : false}
           />
+
           <NavigationItem
             open={open}
             text={'Recipes'}
@@ -115,6 +116,7 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             }}
             selected={view === 'recipes' || view === 'addRecipe' ? true : false}
           />
+
           <NavigationItem
             open={open}
             text={'Discover'}
@@ -124,6 +126,7 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             }}
             selected={view === 'discover' ? true : false}
           />
+
           <NavigationItem
             open={open}
             text={'Meal Planner'}
