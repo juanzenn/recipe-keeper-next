@@ -1,37 +1,10 @@
 import React from 'react';
 import Text from '@components/common/Text';
 import { Button, ButtonOutlined } from '@components/common/Button';
-import { useUser } from '@auth0/nextjs-auth0';
 import ViewHeader from '@components/common/ViewHeader';
 import { ViewProps } from './Views';
 
-export interface DashboardRecipeShowcaseProps {
-  title: string;
-  recipeTitle: string;
-  recipeLink?: string;
-}
-
-function DashboardRecipeShowcase({
-  title,
-  recipeTitle,
-  recipeLink,
-}: DashboardRecipeShowcaseProps) {
-  return (
-    <article>
-      <header className='space-y-2 mb-2'>
-        <Text type='h3' className='text-primary-500'>
-          {title}
-        </Text>
-        <figure className='w-full h-56 bg-gray-300 rounded-lg'></figure>
-      </header>
-      <p className='text-xl uppercase font-bold tracking-wide mb-1'>
-        {recipeTitle}
-      </p>
-      <p className='text-sm font-light text-gray-400 mb-6'>Time: 45 minutes</p>
-      <Button className='w-full px-6 py-2 text-center'>See recipe</Button>
-    </article>
-  );
-}
+import RecipeCard from '@components/common/RecipeCard';
 
 export default function Dashboard({ setView, setOpen }: ViewProps) {
   return (
@@ -43,13 +16,16 @@ export default function Dashboard({ setView, setOpen }: ViewProps) {
 
       <section>
         <section className='grid grid-cols-3 gap-4 items-center'>
-          <DashboardRecipeShowcase
-            title={'What to eat?'}
+          <RecipeCard
+            type={'dashboard'}
             recipeTitle={'Tacos al pastor'}
+            subtitle={'What to eat?'}
           />
-          <DashboardRecipeShowcase
-            title={'Recommended'}
+
+          <RecipeCard
+            type={'dashboard'}
             recipeTitle={'Pepperoni pizza'}
+            subtitle={'Recommended'}
           />
 
           <article>
