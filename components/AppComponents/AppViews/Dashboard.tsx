@@ -4,6 +4,7 @@ import { Button, ButtonOutlined } from '@components/common/Button';
 
 export interface ViewProps {
   setView: (value: string) => void;
+  setOpen: (value: boolean) => void;
 }
 
 interface DashboardRecipeShowcaseProps {
@@ -34,7 +35,7 @@ function DashboardRecipeShowcase({
   );
 }
 
-export default function Dashboard({ setView }: ViewProps) {
+export default function Dashboard({ setView, setOpen }: ViewProps) {
   return (
     <main>
       <section className='mb-4'>
@@ -67,19 +68,28 @@ export default function Dashboard({ setView }: ViewProps) {
             <section className='space-y-6'>
               <Button
                 className='px-6 py-2 w-full'
-                onClick={() => setView('addRecipe')}>
+                onClick={() => {
+                  setOpen(false);
+                  setView('addRecipe');
+                }}>
                 Add a recipe
               </Button>
 
               <ButtonOutlined
                 className='px-6 py-2 w-full'
-                onClick={() => setView('recipes')}>
+                onClick={() => {
+                  setOpen(false);
+                  setView('recipes');
+                }}>
                 All my recipes
               </ButtonOutlined>
 
               <ButtonOutlined
                 className='px-6 py-2 w-full'
-                onClick={() => setView('mealPlanner')}>
+                onClick={() => {
+                  setOpen(false);
+                  setView('mealPlanner');
+                }}>
                 Meal Planner
               </ButtonOutlined>
             </section>
