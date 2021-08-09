@@ -12,6 +12,12 @@ interface Props {
   setOpen: (value: boolean) => void;
 }
 
+// function switchView(
+//   view: string,
+//   setView: (value: string) => void,
+//   setOpen: (value: boolean) => void
+// ): React.ReactNode {}
+
 export default function Views({ view, setView, setOpen }: Props) {
   switch (view) {
     case 'dashboard':
@@ -27,4 +33,6 @@ export default function Views({ view, setView, setOpen }: Props) {
     case 'userSettings':
       return <UserSettings />;
   }
+
+  return <></>;
 }
