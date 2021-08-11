@@ -1,19 +1,25 @@
-import { ButtonSecondary } from '@components/common/Button';
-import Text from '@components/common/Text';
-import ViewHeader from '@components/common/ViewHeader';
 import React from 'react';
 
-import { CirclePlus, Search, Pencil } from 'akar-icons';
+import Head from 'next/head';
+import Text from '@components/common/Text';
+import ViewHeader from '@components/common/ViewHeader';
+import RecipeCard from '@components/common/RecipeCard';
+import { ButtonSecondary } from '@components/common/Button';
+
+import AppLayout from '@components/layout/AppLayout';
+import NavigationContainer from '@components/common/NavigationContainer';
+import { CirclePlus, Search } from 'akar-icons';
 import Input from '@components/common/Input';
 import Dropdown from '@components/common/Dropdown';
-import RecipeCard from '@components/common/RecipeCard';
-import NavigationContainer from '@components/common/NavigationContainer';
+import Link from 'next/link';
 
-import { ViewProps } from './Views';
-
-export default function Recipes({ setView, setOpen }: ViewProps) {
+export default function Recipes() {
   return (
-    <main className='pb-24'>
+    <>
+      <Head>
+        <title>Recipe Keeper - App</title>
+      </Head>
+
       <ViewHeader title='Recipes' subtitle='All your recipes in one place.' />
 
       <nav className='h-16 flex gap-2 mb-12'>
@@ -21,14 +27,13 @@ export default function Recipes({ setView, setOpen }: ViewProps) {
           <Text type='h3' className='w-full'>
             Add a recipe
           </Text>
-          <ButtonSecondary
-            onClick={() => {
-              setView('addRecipe');
-              setOpen(false);
-            }}
-            className='w-full h-[max-content] px-6 py-2 text-primary-500 flex gap-2 items-center justify-center'>
-            Add
-            <CirclePlus size={20} />
+          <ButtonSecondary className='w-full border-2 border-transparent hover:border-white'>
+            <Link href='/app/recipes/add'>
+              <a className='w-full px-6 py-2 flex gap-2 items-center justify-center text-primary-500 hover:text-white transition-all'>
+                Add
+                <CirclePlus size={20} />
+              </a>
+            </Link>
           </ButtonSecondary>
         </NavigationContainer>
         <NavigationContainer>
@@ -52,6 +57,11 @@ export default function Recipes({ setView, setOpen }: ViewProps) {
         <RecipeCard type={'recipes'} recipeTitle={'Tacos al pastor'} />
         <RecipeCard type={'recipes'} recipeTitle={'Tacos al pastor'} />
       </section>
-    </main>
+    </>
   );
 }
+
+// eslint-disable-next-line react/display-name
+Recipes.getLayout = (page: React.ReactNode) => (
+  <AppLayout view='recipes'>{page}</AppLayout>
+);

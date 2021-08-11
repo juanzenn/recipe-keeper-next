@@ -1,16 +1,22 @@
 import React from 'react';
 
+import Head from 'next/head';
 import ViewHeader from '@components/common/ViewHeader';
-import NavigationContainer from '@components/common/NavigationContainer';
-import Dropdown from '@components/common/Dropdown';
-import Input from '@components/common/Input';
-import { Search } from 'akar-icons';
-import Text from '@components/common/Text';
 import RecipeCard from '@components/common/RecipeCard';
+
+import AppLayout from '@components/layout/AppLayout';
+import NavigationContainer from '@components/common/NavigationContainer';
+import { Search } from 'akar-icons';
+import Input from '@components/common/Input';
+import Dropdown from '@components/common/Dropdown';
 
 export default function Discover() {
   return (
-    <main>
+    <>
+      <Head>
+        <title>Recipe Keeper - App</title>
+      </Head>
+
       <ViewHeader
         title='Discover'
         subtitle='New recipes from around the world'
@@ -30,7 +36,7 @@ export default function Discover() {
         </NavigationContainer>
       </nav>
 
-      <section className='grid grid-cols-3 gap-x-4 gap-y-12 pb-12'>
+      <section className='grid grid-cols-3 gap-x-4 gap-y-12'>
         <RecipeCard type={'discover'} recipeTitle={'Tacos al pastor'} />
         <RecipeCard type={'discover'} recipeTitle={'Pepperonni Pizza'} />
         <RecipeCard type={'discover'} recipeTitle={'Tacos al pastor'} />
@@ -38,6 +44,11 @@ export default function Discover() {
         <RecipeCard type={'discover'} recipeTitle={'Tacos al pastor'} />
         <RecipeCard type={'discover'} recipeTitle={'Pepperonni Pizza'} />
       </section>
-    </main>
+    </>
   );
 }
+
+// eslint-disable-next-line react/display-name
+Discover.getLayout = (page: React.ReactNode) => (
+  <AppLayout view='discover'>{page}</AppLayout>
+);

@@ -11,6 +11,7 @@ import {
   ChevronLeft,
   TextAlignJustified,
 } from 'akar-icons';
+import Link from 'next/link';
 
 interface NavigationItemProps {
   open: boolean;
@@ -18,6 +19,7 @@ interface NavigationItemProps {
   text: string;
   handleClick: any;
   selected: boolean;
+  link: string;
 }
 
 function NavigationItem({
@@ -26,23 +28,26 @@ function NavigationItem({
   text,
   handleClick,
   selected,
+  link,
 }: NavigationItemProps) {
   return (
-    <li
-      onClick={handleClick}
-      className={
-        selected
-          ? `h-8 cursor-pointer flex gap-4 items-center text-lg tracking-wide text-primary-500 font-medium`
-          : `h-8 cursor-pointer flex gap-4 items-center text-lg tracking-wide hover:text-primary-500 duration-150`
-      }>
-      {open ? (
-        <>
-          {icon} {text}
-        </>
-      ) : (
-        <>{icon}</>
-      )}
-    </li>
+    <Link href={link}>
+      <a
+        onClick={handleClick}
+        className={
+          selected
+            ? `h-8 cursor-pointer flex gap-4 items-center text-lg tracking-wide text-primary-500 font-medium`
+            : `h-8 cursor-pointer flex gap-4 items-center text-lg tracking-wide hover:text-primary-500 duration-150`
+        }>
+        {open ? (
+          <>
+            {icon} {text}
+          </>
+        ) : (
+          <>{icon}</>
+        )}
+      </a>
+    </Link>
   );
 }
 
@@ -79,13 +84,12 @@ function NavigationBrand({ open, setOpen }: NavigationBrandProps) {
 }
 
 interface Props {
-  open: boolean;
-  setOpen: (value: boolean) => void;
   view: string;
-  setView: (value: string) => void;
 }
 
-export default function AppNavigation({ open, setOpen, view, setView }: Props) {
+export default function AppNavigation({ view }: Props) {
+  const [open, setOpen] = useState(false);
+
   return (
     <nav
       className={
@@ -103,9 +107,9 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             icon={<Home size={24} />}
             handleClick={() => {
               setOpen(false);
-              setView('dashboard');
             }}
             selected={view === 'dashboard' ? true : false}
+            link={'/app'}
           />
 
           <NavigationItem
@@ -114,9 +118,9 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             icon={<Book size={24} />}
             handleClick={() => {
               setOpen(false);
-              setView('recipes');
             }}
             selected={view === 'recipes' || view === 'addRecipe' ? true : false}
+            link={'/app/recipes'}
           />
 
           <NavigationItem
@@ -125,9 +129,9 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             icon={<Globe size={24} />}
             handleClick={() => {
               setOpen(false);
-              setView('discover');
             }}
             selected={view === 'discover' ? true : false}
+            link={'/app/discover'}
           />
 
           <NavigationItem
@@ -136,9 +140,9 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             icon={<Utensils size={24} />}
             handleClick={() => {
               setOpen(false);
-              setView('mealPlanner');
             }}
             selected={view === 'mealPlanner' ? true : false}
+            link={'/app'}
           />
         </ul>
       </section>
@@ -151,9 +155,9 @@ export default function AppNavigation({ open, setOpen, view, setView }: Props) {
             icon={<Person size={24} />}
             handleClick={() => {
               setOpen(false);
-              setView('userSettings');
             }}
             selected={view === 'userSettings' ? true : false}
+            link={'/app'}
           />
           <li className='cursor-pointer bg-primary-500 hover:bg-primary-400 px-4 py-2 flex gap-4 items-center text-lg tracking-wide w-max rounded-md text-white shadow-md duration-300'>
             <SignOut size={24} /> Log Out
