@@ -1,69 +1,15 @@
 import { Button } from '@components/common/Button';
 import Text from '@components/common/Text';
-import {
-  Ingredient as IngredientInterface,
-  useIngredient,
-} from '@hooks/ingredient';
-import React, { useState, useEffect } from 'react';
-
-interface IngredientProps {
-  update: (ingredient: IngredientInterface) => void;
-  initialValue: IngredientInterface;
-}
-
-function Ingredient({ update, initialValue }: IngredientProps) {
-  const options: string[] = ['g', 'kg', 'mg'];
-
-  const { getIngredient, setIngredient, setQuantity, setMeasurement } =
-    useIngredient(initialValue);
-
-  const { ingredient, quantity, measurement } = getIngredient();
-
-  useEffect(() => {
-    update(getIngredient());
-  }, [ingredient, quantity, measurement]);
-
-  return (
-    <article className='mb-2 flex flex-col gap-4'>
-      <div>
-        <input
-          className='p-4 border border-gray-200'
-          type='text'
-          value={ingredient}
-          onChange={event => {
-            setIngredient(event.target.value);
-          }}
-        />
-        {ingredient}
-      </div>
-      <div>
-        <input
-          min={0}
-          className='p-4 border border-gray-200'
-          type='number'
-          value={quantity}
-          onChange={event => setQuantity(parseInt(event.target.value, 10))}
-        />
-        {quantity}
-      </div>
-      <div>
-        <input
-          className='p-4 border border-gray-200'
-          type='text'
-          value={measurement}
-          onChange={event => setMeasurement(event.target.value)}
-        />
-        {measurement}
-      </div>
-    </article>
-  );
-}
+import { Ingredient as IngredientInterface } from '@hooks/ingredient';
+import React, { useState } from 'react';
+import Ingredient from './Ingredient';
 
 interface Props {
   changeIngredients: (value: IngredientInterface[]) => void;
+  unit: string;
 }
 
-export default function Ingredients({ changeIngredients }: Props) {
+export default function Ingredients({ changeIngredients, unit }: Props) {
   const [items, setItems] = useState<string[]>([]);
   const [counter, setCounter] = useState(0);
 
@@ -87,12 +33,6 @@ export default function Ingredients({ changeIngredients }: Props) {
         Ingredients
       </Text>
 
-      {/* <section>
-        {ingredients.map((ingredient, index) => (
-          <div key={`${index}-ingredient`}>{ingredient.ingredient}</div>
-        ))}
-      </section> */}
-
       <div>
         {items.map(item => (
           <Ingredient
@@ -103,6 +43,7 @@ export default function Ingredients({ changeIngredients }: Props) {
               measurement: '',
             }}
             update={updateIngredients}
+            unit={unit}
             key={item}
           />
         ))}

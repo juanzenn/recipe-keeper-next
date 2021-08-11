@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useNumberInput, useTextInput } from '@hooks/formHooks';
 import { Ingredient } from '@hooks/ingredient';
+import TagSelector from '@components/AppComponents/TagSelector';
 
 export default function Add() {
   function handleSubmit(event: React.FormEvent) {
@@ -18,31 +19,19 @@ export default function Add() {
   const [description, changeDescription] = useTextInput('');
   const [time, changeTime] = useNumberInput(0);
   const [servings, changeServings] = useNumberInput(0);
-  const [tag, changeTag] = useTextInput('');
   const [unit, changeUnit] = useTextInput('metric');
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [availableTags, setAvailableTags] = useState([
-    'meat',
-    'vegan',
-    'vegetarian',
-  ]);
 
-  useEffect(() => {
-    const index = availableTags.indexOf(tag);
+  function handleTagDelete(tag: string): void {
+    const index = selectedTags.indexOf(tag);
 
-    if (index < 0) {
-      return;
-    }
+    const firstHalf = selectedTags.slice(0, index);
+    const secondHalf = selectedTags.slice(index + 1);
 
-    const firstHalf = availableTags.slice(0, index);
-    const secondHalf = availableTags.slice(index + 1);
-
-    setAvailableTags(firstHalf.concat(secondHalf));
-
-    setSelectedTags([...selectedTags, tag]);
-  }, [tag]);
+    setSelectedTags(firstHalf.concat(secondHalf));
+  }
 
   return (
     <>
@@ -101,22 +90,20 @@ export default function Add() {
         </div>
 
         <div className='space-y-6'>
-          <Input
-            value={tag}
-            onChange={event => {
-              changeTag(event);
-            }}
-            type='select'
-            label='Tags'
-            placeholder='Select something'
-            options={availableTags}
+          <TagSelector
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
           />
 
           <section className='flex gap-4'>
             {selectedTags.length === 0
               ? 'No selected tags'
               : selectedTags.map((tag, index) => (
-                  <div key={`tag-${index}`}>{tag}</div>
+                  <div
+                    onClick={() => handleTagDelete(tag)}
+                    key={`tag-${index}`}>
+                    {tag}
+                  </div>
                 ))}
           </section>
 
@@ -132,11 +119,10 @@ export default function Add() {
           />
         </div>
 
-        <Ingredients changeIngredients={setIngredients} />
+        <Ingredients changeIngredients={setIngredients} unit={unit} />
 
-        <button type='submit' className='p-6 bg-red rounded-full'>
-          {' '}
-          USBMIT{' '}
+        <button type='submit' className='w-max p-4 bg-primary-500 text-white'>
+          Submit
         </button>
       </form>
     </>

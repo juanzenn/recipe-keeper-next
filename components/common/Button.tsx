@@ -10,6 +10,7 @@ interface Props {
 function Button(props: Props) {
   return (
     <button
+      type='button'
       className={`font-medium text-white bg-primary-500 rounded shadow-md hover:bg-primary-600 transition-colors duration-300 ${props.className}`}
       {...props.rest}
       onClick={props.onClick}>
@@ -20,6 +21,7 @@ function Button(props: Props) {
 function ButtonOutlined(props: Props) {
   return (
     <button
+      type='button'
       className={`font-medium text-primary-500 border-2 border-primary-500 bg-white hover:bg-primary-500 hover:text-white  rounded shadow-md transition-colors duration-300 ${props.className}`}
       {...props.rest}
       onClick={props.onClick}>
@@ -31,6 +33,7 @@ function ButtonOutlined(props: Props) {
 function ButtonSecondary(props: Props) {
   return (
     <button
+      type='button'
       className={`font-medium bg-primary-50 hover:bg-primary-500 hover:text-white tracking-wide rounded transition-all duration-300 ${props.className}`}
       {...props.rest}
       onClick={props.onClick}>
