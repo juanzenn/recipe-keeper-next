@@ -3,11 +3,13 @@ import ViewHeader from '@components/common/ViewHeader';
 import AppLayout from '@components/layout/AppLayout';
 import Ingredients from '@components/AppComponents/Ingredients';
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useNumberInput, useTextInput } from '@hooks/formHooks';
 import { Ingredient } from '@hooks/ingredient';
 import TagSelector from '@components/AppComponents/TagSelector';
+import Label from '@components/common/Label';
+import { Button } from '@components/common/Button';
 
 export default function Add() {
   function handleSubmit(event: React.FormEvent) {
@@ -53,7 +55,7 @@ export default function Add() {
         title='Add new recipe'
         subtitle="Fill the form with your recipe's information"></ViewHeader>
 
-      <form className='grid grid-cols-2 gap-6' onSubmit={handleSubmit}>
+      <form className='grid grid-cols-2 gap-8' onSubmit={handleSubmit}>
         <Input
           value={recipeName}
           onChange={event => {
@@ -100,22 +102,28 @@ export default function Add() {
         </div>
 
         <div className='space-y-6'>
-          <TagSelector
-            selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
-          />
-
-          <section className='flex gap-4'>
-            {selectedTags.length === 0
-              ? 'No selected tags'
-              : selectedTags.map((tag, index) => (
-                  <div
+          <article>
+            <TagSelector
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+            />
+            <section className='flex gap-4 mt-4'>
+              {selectedTags.length === 0 ? (
+                <p className='text-sm text-gray-600 italic tracking-tight'>
+                  No selected tags
+                </p>
+              ) : (
+                selectedTags.map((tag, index) => (
+                  <Label
+                    key={`tag-${index}`}
                     onClick={() => handleTagDelete(tag)}
-                    key={`tag-${index}`}>
+                    type={tag}>
                     {tag}
-                  </div>
-                ))}
-          </section>
+                  </Label>
+                ))
+              )}
+            </section>
+          </article>
 
           <Input
             value={unit}
@@ -135,9 +143,11 @@ export default function Add() {
           unit={unit}
         />
 
-        <button type='submit' className='w-max p-4 bg-primary-500 text-white'>
-          Submit
-        </button>
+        <Button
+          type='submit'
+          className='w-max p-4 bg-primary-500 text-white col-span-2'>
+          Create new recipe
+        </Button>
       </form>
     </>
   );

@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function TagSelector({ setSelectedTags, selectedTags }: Props) {
-  const tags: string[] = ['meat', 'vegan', 'vegetarian'];
+  const tags: string[] = ['Meat', 'Lunch', 'Dinner'];
 
   const [tag, changeTag] = useTextInput('');
 

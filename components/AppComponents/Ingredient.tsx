@@ -24,7 +24,7 @@ export default function Ingredient({ update, initialValue, unit }: Props) {
   }, [ingredient, quantity, measurement]);
 
   return (
-    <article className='mb-4 flex border border-primary-300 rounded-md shadow-md overflow-hidden'>
+    <article className='flex border-2 border-primary-300 rounded-md shadow-md overflow-hidden text-primary-500'>
       <input
         className='w-2/3 p-4 focus:outline-none'
         type='text'

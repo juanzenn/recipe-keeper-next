@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export interface Ingredient {
-  id: number;
+  id: string;
   ingredient: string;
   quantity: number;
   measurement: string;

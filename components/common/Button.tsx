@@ -4,40 +4,47 @@ interface Props {
   children: string | React.ReactNode;
   className?: string;
   onClick?: () => void;
-  rest?: any;
+  type?: 'submit' | 'button';
 }
 
-function Button(props: Props) {
+function Button({ children, className, onClick, type = 'button' }: Props) {
   return (
     <button
-      type='button'
-      className={`font-medium text-white bg-primary-500 rounded shadow-md hover:bg-primary-600 transition-colors duration-300 ${props.className}`}
-      {...props.rest}
-      onClick={props.onClick}>
-      {props.children}
+      className={`font-medium text-white bg-primary-500 rounded shadow-md hover:bg-primary-600 transition-colors duration-300 ${className}`}
+      onClick={onClick}
+      type={type}>
+      {children}
     </button>
   );
 }
-function ButtonOutlined(props: Props) {
+function ButtonOutlined({
+  children,
+  className,
+  onClick,
+  type = 'button',
+}: Props) {
   return (
     <button
-      type='button'
-      className={`font-medium text-primary-500 border-2 border-primary-500 bg-white hover:bg-primary-500 hover:text-white  rounded shadow-md transition-colors duration-300 ${props.className}`}
-      {...props.rest}
-      onClick={props.onClick}>
-      {props.children}
+      className={`font-medium text-primary-500 border-2 border-primary-500 bg-white hover:bg-primary-500 hover:text-white  rounded shadow-md transition-colors duration-300 ${className}`}
+      onClick={onClick}
+      type={type}>
+      {children}
     </button>
   );
 }
 
-function ButtonSecondary(props: Props) {
+function ButtonSecondary({
+  children,
+  className,
+  onClick,
+  type = 'button',
+}: Props) {
   return (
     <button
-      type='button'
-      className={`font-medium bg-primary-50 hover:bg-primary-500 hover:text-white tracking-wide rounded transition-all duration-300 ${props.className}`}
-      {...props.rest}
-      onClick={props.onClick}>
-      {props.children}
+      className={`font-medium bg-primary-50 hover:bg-primary-500 hover:text-white tracking-wide rounded transition-all duration-300 ${className}`}
+      onClick={onClick}
+      type={type}>
+      {children}
     </button>
   );
 }
