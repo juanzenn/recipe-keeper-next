@@ -12,14 +12,24 @@ import TagSelector from '@components/AppComponents/TagSelector';
 export default function Add() {
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    console.log(ingredients);
+    const recipe = {
+      name: recipeName,
+      description: description,
+      cooking_time: time,
+      servings_per_recipe: servings,
+      tags: selectedTags,
+      ingredients: ingredients,
+    };
+    console.log(recipe);
   }
 
   const [recipeName, changeRecipeName] = useTextInput('');
   const [description, changeDescription] = useTextInput('');
   const [time, changeTime] = useNumberInput(0);
   const [servings, changeServings] = useNumberInput(0);
+
   const [unit, changeUnit] = useTextInput('metric');
+
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -119,7 +129,11 @@ export default function Add() {
           />
         </div>
 
-        <Ingredients changeIngredients={setIngredients} unit={unit} />
+        <Ingredients
+          setIngredients={setIngredients}
+          ingredients={ingredients}
+          unit={unit}
+        />
 
         <button type='submit' className='w-max p-4 bg-primary-500 text-white'>
           Submit

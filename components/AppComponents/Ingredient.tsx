@@ -44,6 +44,7 @@ export default function Ingredient({ update, initialValue, unit }: Props) {
         className='w-1/4 p-4 focus:outline-none'
         value={measurement}
         onChange={event => setMeasurement(event.target.value)}>
+        <option>Select</option>
         {unit.toLowerCase() === 'metric'
           ? metric.map((unit, index) => (
               <option value={unit} key={`unit-${index}`}>
