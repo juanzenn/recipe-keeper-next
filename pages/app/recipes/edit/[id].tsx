@@ -11,7 +11,7 @@ import TagSelector from '@components/AppComponents/TagSelector';
 import Label from '@components/common/Label';
 import { Button } from '@components/common/Button';
 
-export default function Add() {
+export default function Edit() {
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     const recipe = {
@@ -27,10 +27,10 @@ export default function Add() {
     console.log(recipe);
   }
 
-  const [recipeName, changeRecipeName] = useTextInput('');
-  const [description, changeDescription] = useTextInput('');
-  const [time, changeTime] = useNumberInput(0);
-  const [servings, changeServings] = useNumberInput(0);
+  const [recipeName, changeRecipeName] = useTextInput('Some recipe name');
+  const [description, changeDescription] = useTextInput('Some description!!!!');
+  const [time, changeTime] = useNumberInput(2);
+  const [servings, changeServings] = useNumberInput(4);
 
   const [unit, changeUnit] = useTextInput('metric');
 
@@ -187,6 +187,6 @@ export default function Add() {
 }
 
 // eslint-disable-next-line react/display-name
-Add.getLayout = (page: React.ReactNode) => (
+Edit.getLayout = (page: React.ReactNode) => (
   <AppLayout view='recipes'>{page}</AppLayout>
 );
