@@ -1,97 +1,85 @@
-import { Button } from '@components/common/Button';
-import Text from '@components/common/Text';
+import { ButtonOutlined } from '@components/common/Button';
 import { Ingredient as IngredientInterface } from '@hooks/ingredient';
 import React, { useState } from 'react';
-import createRandomID from '../../lib/randomid';
-import Ingredient from './Ingredient';
+import createRandomID from '@lib/randomid';
+import IngredientsBlock, { BlockOfIngredients } from './IngredientsBlock';
 
 interface Props {
   setIngredients: (value: IngredientInterface[]) => void;
-  unit: string;
   ingredients: IngredientInterface[];
 }
 
-function removeElement(arr: any, index: number) {
-  const firstHalf = arr.slice(0, index);
-  const secondHalf = arr.slice(index + 1);
+// Ingredients: The global component that will store every block
 
-  return [...firstHalf.concat(secondHalf)];
+interface Block {
+  id: string;
+  block: BlockOfIngredients;
 }
 
-export default function Ingredients({
-  ingredients,
-  setIngredients,
-  unit,
-}: Props) {
-  function addItem() {
-    let newItem = {
+export default function Ingredients() {
+  const [blocks, setBlocks] = useState<Block[]>([
+    {
       id: createRandomID(),
-      ingredient: '',
-      quantity: 0,
-      measurement: '',
+      block: {
+        blockTitle: 'Block',
+        ingredients: [],
+      },
+    },
+  ]);
+
+  function addBlock() {
+    const block: Block = {
+      id: createRandomID(),
+      block: {
+        blockTitle: 'Block',
+        ingredients: [],
+      },
     };
-    updateIngredients(newItem);
+
+    setBlocks(state => {
+      return [...state, block];
+    });
   }
 
-  function updateIngredients(ingredient: IngredientInterface) {
-    if (ingredients.find(x => ingredient.id === x.id)) {
-      ingredients[ingredients.findIndex(x => ingredient.id === x.id)] = {
-        ...ingredient,
-      };
-      setIngredients(ingredients);
-      return;
-    } else {
-      setIngredients([...ingredients, ingredient]);
-    }
-  }
-
-  function deleteIngredient(id: string) {
-    const index = ingredients.findIndex(x => {
-      console.log(id);
-      console.log(x);
-      if (id === x.id) {
-        return true;
+  function removeBlock(id: string) {
+    const newBlocksList = blocks.filter(block => {
+      if (block.id === id) {
+        return false;
       }
+
+      return true;
     });
 
-    if (index < 0) {
-      console.log('That item is not on ingredients');
-      console.log(ingredients);
-      return;
-    }
-
-    setIngredients(removeElement(ingredients, index));
+    setBlocks(newBlocksList);
   }
 
   return (
     <section>
-      <p className='mb-4 font-bold text-gray-600 text-xl tracking-tight'>
-        Ingredients
+      <p className='font-bold text-xl tracking-tight mb-2'>Ingredients</p>
+      <p className='w-max text-xs text-gray-500 transition-all mb-6'>
+        Add blocks for every part of your recipe. Ex: sauces, main dish, a
+        complement, etc.
       </p>
 
-      <div>
-        {ingredients.map((ingredient, index) => {
-          return (
-            <div key={`item-${ingredient.id}`} className='mb-4'>
-              <Ingredient
-                initialValue={ingredient}
-                update={updateIngredients}
-                unit={unit}
-              />
-              <button
-                type='button'
-                onClick={() => deleteIngredient(ingredient.id)}
-                className='w-max text-xs text-gray-600 hover:text-primary-700 transition-all'>
-                Remove
-              </button>
-            </div>
-          );
-        })}
-      </div>
+      {blocks.map(block => (
+        <article
+          key={block.id}
+          className='px-2 py-4 space-y-4 shadow-md rounded-sm mb-6'>
+          <IngredientsBlock blockTitle={block.block.blockTitle} />
+          <button
+            type='button'
+            onClick={() => removeBlock(block.id)}
+            className='w-max text-xs text-gray-600 hover:text-primary-500 transition-all'>
+            Remove block
+          </button>
+        </article>
+      ))}
 
-      <Button className='px-6 py-2' onClick={() => addItem()}>
-        Add Ingredient
-      </Button>
+      <ButtonOutlined
+        className='px-6 py-2 text-sm tracking-wide'
+        onClick={addBlock}>
+        Add block
+      </ButtonOutlined>
     </section>
   );
 }

@@ -5,11 +5,12 @@ function getRandomIntInclusive(min: number, max: number) {
 }
 
 export default function createRandomID(): string {
-  let letters = 'abcdefg';
+  let letters =
+    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
   let id = '';
 
   for (let i = 0; i < 7; i++) {
-    id += letters[getRandomIntInclusive(0, 6)];
+    id += letters[getRandomIntInclusive(0, 63)];
   }
 
   return id;

@@ -1,64 +1,29 @@
-import {
-  Ingredient as IngredientInterface,
-  useIngredient,
-} from '@hooks/ingredient';
-import React, { useEffect } from 'react';
+import React, { useRef } from 'react';
+// Just a ingredient
+// Using useRef for easy value setup!!
+// The state is going to be updated in the block component
 
 interface Props {
-  update: (ingredient: IngredientInterface) => void;
-  initialValue: IngredientInterface;
-  unit: string;
+  id: string;
+  updateIngredient: (id: string, newValue: string) => void;
 }
 
-export default function Ingredient({ update, initialValue, unit }: Props) {
-  const metric: string[] = ['g', 'kg'];
-  const imperial: string[] = ['cups', 'tbsp', 'tsp', 'oz', 'lb'];
-
-  const { getIngredient, setIngredient, setQuantity, setMeasurement } =
-    useIngredient(initialValue);
-
-  const { ingredient, quantity, measurement } = getIngredient();
-
-  useEffect(() => {
-    update(getIngredient());
-  }, [ingredient, quantity, measurement]);
+export default function Ingredient({ updateIngredient, id }: Props) {
+  const ingredient = useRef<HTMLInputElement>(null);
 
   return (
-    <article className='flex border-2 border-primary-300 rounded-md shadow-md overflow-hidden text-primary-500'>
-      <input
-        className='w-2/3 p-4 focus:outline-none'
-        type='text'
-        value={ingredient}
-        onChange={event => {
-          setIngredient(event.target.value);
-        }}
-      />
-      <input
-        min={0}
-        className='w-1/4 p-4 focus:outline-none border-l border-r border-primary-200'
-        type='number'
-        value={quantity}
-        onChange={event => setQuantity(parseInt(event.target.value, 10))}
-      />
-      <select
-        className='w-1/4 p-4 focus:outline-none'
-        value={measurement}
-        onChange={event => setMeasurement(event.target.value)}>
-        <option>Select</option>
-        {unit.toLowerCase() === 'metric'
-          ? metric.map((unit, index) => (
-              <option value={unit} key={`unit-${index}`}>
-                {unit}
-              </option>
-            ))
-          : unit.toLowerCase() === 'imperial'
-          ? imperial.map((unit, index) => (
-              <option value={unit} key={`unit-${index}`}>
-                {unit}
-              </option>
-            ))
-          : null}
-      </select>
-    </article>
+    <input
+      className='w-full py-2 px-4 text-primary-500 placeholder-primary-300 border-2 border-primary-300 hover:border-primary-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/70 rounded-md shadow-sm'
+      placeholder='All-purprose flour - 200g...'
+      type='text'
+      ref={ingredient}
+      value={ingredient.current?.value}
+      onChange={() =>
+        updateIngredient(
+          id,
+          ingredient.current?.value ? ingredient.current?.value : ''
+        )
+      }
+    />
   );
 }

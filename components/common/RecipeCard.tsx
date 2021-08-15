@@ -4,78 +4,68 @@ import { Button, ButtonSecondary } from './Button';
 import Label from './Label';
 import Text from './Text';
 
+import Link from 'next/link';
+import Image from 'next/image';
+
 interface Props {
-  type: 'dashboard' | 'recipes' | 'discover';
+  recipeId: string;
+  userRecipe: boolean;
+  imageURL: string;
   recipeTitle: string;
-  subtitle?: string;
+  labels: string[];
+  time: string;
 }
 
-export default function RecipeCard({ type, recipeTitle, subtitle }: Props) {
-  switch (type) {
-    case 'dashboard':
-      return (
-        <article>
-          <header className='space-y-2 mb-2'>
-            <Text type='h3' className='text-primary-500'>
-              {subtitle}
-            </Text>
-            <figure className='w-full h-56 bg-gray-300 rounded-lg'></figure>
-          </header>
-          <p className='text-xl uppercase font-bold tracking-wide mb-1'>
-            {recipeTitle}
-          </p>
-          <p className='text-sm font-light text-gray-400 mb-6'>
-            Time: 45 minutes
-          </p>
-          <Button className='w-full px-6 py-2 text-center'>See recipe</Button>
-        </article>
-      );
-    case 'recipes':
-      return (
-        <article>
-          <header className='space-y-2 mb-4'>
-            <Text type='h3' className='text-primary-500'>
-              {recipeTitle}
-            </Text>
-            <figure className='w-full h-56 bg-gray-300 rounded-lg'></figure>
-          </header>
-          <section className='flex gap-2 mb-2'>
-            <Label type='meat'>Meat</Label>
-            <Label type='lunch'>Lunch</Label>
-            <Label type='dinner'>Dinner</Label>
-          </section>
-          <p className='text-sm font-light text-gray-400 mb-6'>
-            Time: 45 minutes
-          </p>
+export default function RecipeCard(props: Props) {
+  const {
+    recipeId,
+    userRecipe = true,
+    imageURL,
+    recipeTitle,
+    labels,
+    time,
+  } = props;
 
-          <footer className='flex gap-4'>
-            <Button className='w-3/4 px-6 py-2 text-center'>See recipe</Button>
-            <ButtonSecondary className='w-1/4 px-2 py-2 flex items-center justify-center gap-2'>
-              <Pencil size={20} />
-            </ButtonSecondary>
-          </footer>
-        </article>
-      );
-    case 'discover':
-      return (
-        <article>
-          <header className='space-y-2 mb-4'>
-            <Text type='h3' className='text-primary-500'>
-              {recipeTitle}
-            </Text>
-            <figure className='w-full h-56 bg-gray-300 rounded-lg'></figure>
-          </header>
-          <section className='flex gap-2 mb-2'>
-            <Label type='meat'>Meat</Label>
-            <Label type='lunch'>Lunch</Label>
-            <Label type='dinner'>Dinner</Label>
-          </section>
-          <p className='text-sm font-light text-gray-400 mb-6'>
-            Time: 45 minutes
-          </p>
+  return (
+    <article>
+      <header className='space-y-2 mb-6'>
+        <Text type='h3' className='text-primary-500'>
+          {recipeTitle}
+        </Text>
+        <figure className='relative w-full h-56 rounded-lg overflow-hidden shadow-sm'>
+          {/* Image */}
+          <Image src={imageURL} layout='fill' alt={recipeTitle} />
+        </figure>
+      </header>
+      <section className='flex gap-2 mb-3'>
+        {labels.map((label, index) => (
+          <Label key={`labale-${index}`} type={label}>
+            {label}
+          </Label>
+        ))}
+      </section>
+      <p className='text-sm font-light tracking-wide text-gray-500 mb-6'>
+        Cooking time: {time}
+      </p>
 
-          <Button className='w-full px-6 py-2 text-center'>See recipe</Button>
-        </article>
-      );
-  }
+      <footer className='flex gap-4'>
+        <Button className={userRecipe ? `w-3/4` : ' w-full'}>
+          <Link href={`/app/recipes/${recipeId}`}>
+            <a className='w-full px-6 py-2 inline-block'>Add a recipe</a>
+          </Link>
+        </Button>
+
+        {/* Condition for the edit button if it is a userRecipe*/}
+        {userRecipe ? (
+          <ButtonSecondary className='w-1/4 flex items-center justify-center'>
+            <Link href={`/app/recipes/edit/${recipeId}`}>
+              <a className='w-full px-6 py-2 flex items-center justify-center'>
+                <Pencil size={20} />
+              </a>
+            </Link>
+          </ButtonSecondary>
+        ) : null}
+      </footer>
+    </article>
+  );
 }

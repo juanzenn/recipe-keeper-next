@@ -8,8 +8,20 @@ import { Button, ButtonOutlined } from '@components/common/Button';
 
 import AppLayout from '@components/layout/AppLayout';
 import Link from 'next/link';
+import { getUserRecipe } from '@lib/supabase';
+import { useUser } from '@auth0/nextjs-auth0';
 
-export default function Index() {
+interface Props {
+  recipes: {
+    id: string;
+    title: string;
+    image: string;
+    tags: string[];
+    'cooking-time': string;
+  }[];
+}
+
+export default function Index({ recipes = [] }: Props) {
   return (
     <>
       <Head>
@@ -22,17 +34,17 @@ export default function Index() {
       />
 
       <section className='grid grid-cols-3 gap-4 items-center'>
-        <RecipeCard
-          type={'dashboard'}
-          recipeTitle={'Tacos al pastor'}
-          subtitle={'What to eat?'}
-        />
-
-        <RecipeCard
-          type={'dashboard'}
-          recipeTitle={'Pepperoni pizza'}
-          subtitle={'Recommended'}
-        />
+        {recipes.map(recipe => (
+          <RecipeCard
+            key={recipe.id}
+            recipeId={recipe.id}
+            userRecipe={true}
+            imageURL={recipe.image}
+            recipeTitle={recipe.title}
+            labels={recipe.tags}
+            time={recipe['cooking-time']}
+          />
+        ))}
 
         <article>
           <header className='mb-2'>
@@ -65,6 +77,14 @@ export default function Index() {
     </>
   );
 }
+
+// export async function getServerSideProps({ params }: any) {
+//   const recipes = await getUserRecipe(params['user-id']);
+
+//   return {
+//     props: { recipes },
+//   };
+// }
 
 // eslint-disable-next-line react/display-name
 Index.getLayout = (page: React.ReactNode) => (

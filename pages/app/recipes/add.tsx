@@ -32,8 +32,6 @@ export default function Add() {
   const [time, changeTime] = useNumberInput(0);
   const [servings, changeServings] = useNumberInput(0);
 
-  const [unit, changeUnit] = useTextInput('metric');
-
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -119,46 +117,32 @@ export default function Add() {
           />
         </div>
 
-        <div className='space-y-6'>
-          <article>
-            <TagSelector
-              selectedTags={selectedTags}
-              setSelectedTags={setSelectedTags}
-            />
-            <section className='flex gap-4 mt-4'>
-              {selectedTags.length === 0 ? (
-                <p className='text-sm text-gray-600 italic tracking-tight'>
-                  No selected tags
-                </p>
-              ) : (
-                selectedTags.map((tag, index) => (
-                  <Label
-                    key={`tag-${index}`}
-                    onClick={() => handleTagDelete(tag)}
-                    type={tag}>
-                    {tag}
-                  </Label>
-                ))
-              )}
-            </section>
-          </article>
-
-          <Input
-            value={unit}
-            onChange={event => {
-              changeUnit(event);
-            }}
-            type='select'
-            label='Unit System'
-            placeholder='Select something'
-            options={['Metric', 'Imperial']}
+        <article>
+          <TagSelector
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
           />
-        </div>
+          <section className='flex gap-4 mt-4'>
+            {selectedTags.length === 0 ? (
+              <p className='text-sm text-gray-600 tracking-tight'>
+                No selected tags.
+              </p>
+            ) : (
+              selectedTags.map((tag, index) => (
+                <Label
+                  key={`tag-${index}`}
+                  onClick={() => handleTagDelete(tag)}
+                  type={tag}>
+                  {tag}
+                </Label>
+              ))
+            )}
+          </section>
+        </article>
 
         <Ingredients
           setIngredients={setIngredients}
           ingredients={ingredients}
-          unit={unit}
         />
 
         <article>
@@ -171,8 +155,8 @@ export default function Add() {
             placeholder={`* Prepare the meat \n* Prepare the tacos \n* Enjoy yourselve`}
             label='Instructions'
           />
-          <p className='text-sm text-gray-600 italic tracking-tight'>
-            This field accepts Markdown syntax
+          <p className='text-sm text-gray-600 tracking-tight'>
+            This field accepts Markdown syntax.
           </p>
         </article>
 

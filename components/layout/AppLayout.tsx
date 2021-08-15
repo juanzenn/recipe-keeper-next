@@ -1,7 +1,8 @@
-import { useUser } from '@auth0/nextjs-auth0';
+import { UserProfile, useUser } from '@auth0/nextjs-auth0';
 import AppNavigation from '@components/AppComponents/AppNavigation';
 import Text from '@components/common/Text';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { supabase } from '@lib/supabase';
 
 interface AppLayout {
   children: React.ReactNode;
@@ -10,6 +11,35 @@ interface AppLayout {
 
 export default function AppLayout({ children, view }: AppLayout) {
   const { user, isLoading, error } = useUser();
+
+  async function checkUserInDb(user: UserProfile) {
+    const { data } = await supabase
+      .from('users')
+      .select('id')
+      .eq('id', user.sub);
+
+    if (data !== null && data.length <= 0) {
+      console.log('Not in the DB.');
+      const { data } = await supabase
+        .from('users')
+        .insert([{ id: user.sub, name: user.name, email: user.email }]);
+      console.log(data);
+      return data;
+    }
+
+    return data;
+  }
+
+  useEffect(() => {
+    if (window.localStorage.getItem('user-id') && user !== undefined) {
+      return;
+    } else if (user !== undefined) {
+      // Set the token
+      checkUserInDb(user);
+      window.localStorage.setItem('user-id', String(user.sub));
+      return;
+    }
+  }, [user]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;

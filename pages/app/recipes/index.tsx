@@ -12,8 +12,21 @@ import { CirclePlus, Search } from 'akar-icons';
 import Input from '@components/common/Input';
 import Dropdown from '@components/common/Dropdown';
 import Link from 'next/link';
+import { getUserRecipe } from '@lib/supabase';
 
-export default function Recipes() {
+interface Props {
+  recipes: {
+    id: string;
+    title: string;
+    image: string;
+    tags: string[];
+    'cooking-time': string;
+  }[];
+}
+
+export default function Recipes(props: Props) {
+  const { recipes = [] } = props;
+
   return (
     <>
       <Head>
@@ -49,16 +62,55 @@ export default function Recipes() {
         </NavigationContainer>
       </nav>
 
+      {/* <pre>{JSON.stringify(recipes, null, 2)}</pre> */}
+
       <section className='grid grid-cols-3 gap-4 gap-y-12'>
-        <RecipeCard type={'recipes'} recipeTitle={'Tacos al pastor'} />
-        <RecipeCard type={'recipes'} recipeTitle={'Tacos al pastor'} />
-        <RecipeCard type={'recipes'} recipeTitle={'Tacos al pastor'} />
-        <RecipeCard type={'recipes'} recipeTitle={'Tacos al pastor'} />
-        <RecipeCard type={'recipes'} recipeTitle={'Tacos al pastor'} />
-        <RecipeCard type={'recipes'} recipeTitle={'Tacos al pastor'} />
+        {recipes.map(recipe => (
+          <RecipeCard
+            key={recipe.id}
+            recipeId={recipe.id}
+            userRecipe={true}
+            imageURL={recipe.image}
+            recipeTitle={recipe.title}
+            labels={recipe.tags}
+            time={recipe['cooking-time']}
+          />
+        ))}
+        {recipes.map(recipe => (
+          <RecipeCard
+            key={recipe.id}
+            recipeId={recipe.id}
+            userRecipe={true}
+            imageURL={recipe.image}
+            recipeTitle={recipe.title}
+            labels={recipe.tags}
+            time={recipe['cooking-time']}
+          />
+        ))}
+        {recipes.map(recipe => (
+          <RecipeCard
+            key={recipe.id}
+            recipeId={recipe.id}
+            userRecipe={true}
+            imageURL={recipe.image}
+            recipeTitle={recipe.title}
+            labels={recipe.tags}
+            time={recipe['cooking-time']}
+          />
+        ))}
       </section>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const recipes = await getUserRecipe('google-oauth2|117211086836143771355');
+
+  // google-oauth2|117211086836143771355
+
+  return {
+    props: { recipes },
+  };
 }
 
 // eslint-disable-next-line react/display-name

@@ -7,6 +7,11 @@ export interface Ingredient {
   measurement: string;
 }
 
+export interface Ingredients {
+  ingredientBlock: string
+  ingredients: Ingredient[]
+}
+
 export function useIngredient(initialValue: Ingredient) {
   const [ingredient, setIngredient] = useState(initialValue.ingredient);
   const [quantity, setQuantity] = useState(initialValue.quantity);

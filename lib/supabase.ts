@@ -1,0 +1,209 @@
+import { createClient } from '@supabase/supabase-js';
+import { Ingredients } from '@hooks/ingredient';
+
+const supabaseUrl = String(process.env.NEXT_PUBLIC_SUPABASE_URL);
+const supabaseAnonKey = String(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+export interface Recipe {
+  id: string | null;
+  image: string | null;
+  author_id: string | null;
+  title: string | null;
+  slug: string | null;
+  description: string | null;
+  tags: string[] | null;
+  ingredients: Ingredients[] | null;
+  servings: number | null;
+  'cooking-time': string | null;
+  instructions: string | null;
+}
+
+async function addRecipe(recipe: Recipe) {
+  const recipeToAdd = {
+    id: recipe.id,
+    image: recipe.image,
+    author_id: recipe.author_id,
+    title: recipe.title,
+    slug: recipe.slug,
+    description: recipe.description,
+    tags: recipe.tags,
+    ingredients: recipe.ingredients,
+    servings: recipe.servings,
+    'cooking-time': recipe['cooking-time'],
+    instructions: recipe.instructions,
+  };
+
+  try {
+    const { data, error } = await supabase.from('recipes').insert(recipeToAdd);
+
+    if (error !== null) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+async function getUserRecipe(userId: string | null) {
+  try {
+    const { data, error } = await supabase
+      .from('recipes')
+      .select('id, title, slug, image, tags, cooking-time')
+      .eq('author_id', userId);
+
+    if (error !== null) {
+      throw error;
+    }
+
+    const recipes = data?.map(recipe => {
+      const { publicURL } = supabase.storage
+        .from('images')
+        .getPublicUrl(recipe.image);
+
+      const newRecipe = {
+        id: recipe.id,
+        title: recipe.title,
+        slug: recipe.slug,
+        image: publicURL,
+        tags: recipe.tags,
+        'cooking-time': recipe['cooking-time'],
+      };
+
+      return newRecipe;
+    });
+
+    return recipes;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+async function getDiscoveryRecipes(userId: string | null) {
+  try {
+    const { data, error } = await supabase
+      .from('recipes')
+      .select(
+        'id, title, slug, image, tags, cooking-time, author:author_id (name)'
+      )
+      .neq('author_id', userId);
+
+    if (error !== null) {
+      throw error;
+    }
+
+    const recipes = data?.map(recipe => {
+      const { publicURL } = supabase.storage
+        .from('images')
+        .getPublicUrl(recipe.image);
+
+      const newRecipe = {
+        id: recipe.id,
+        title: recipe.title,
+        slug: recipe.slug,
+        image: publicURL,
+        tags: recipe.tags,
+        'cooking-time': recipe['cooking-time'],
+        author: recipe.author,
+      };
+
+      return newRecipe;
+    });
+
+    return recipes;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+async function getRecipeById(recipeId: string | null) {
+  try {
+    const { data, error } = await supabase
+      .from('recipes')
+      .select(
+        `title,
+      image,
+      slug,
+      description,
+      tags,
+      ingredients,
+      servings,
+      cooking-time,
+      instructions,
+      author:author_id (
+          name, email, username
+        )`
+      )
+      .eq('id', recipeId);
+
+    if (error !== null) {
+      throw error;
+    }
+
+    if (data !== null) {
+      const { publicURL } = supabase.storage
+        .from('images')
+        .getPublicUrl(data[0].image);
+
+      const recipe = {
+        title: data[0].title,
+        image: publicURL,
+        slug: data[0].slug,
+        description: data[0].description,
+        tags: data[0].tags,
+        ingredients: data[0].ingredients,
+        servings: data[0].servings,
+        'cooking-time': data[0]['cooking-time'],
+        instructions: data[0].instructions,
+        author: data[0].author,
+      };
+
+      return recipe;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+async function getRecipeForEdition(recipeId: string | null) {
+  try {
+    const { data, error } = await supabase
+      .from('recipes')
+      .select(
+        `title,
+      slug,
+      description,
+      tags,
+      ingredients,
+      servings,
+      cooking-time,
+      instructions,
+      `
+      )
+      .eq('id', recipeId);
+
+    if (error !== null) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export {
+  addRecipe,
+  getUserRecipe,
+  getDiscoveryRecipes,
+  getRecipeById,
+  getRecipeForEdition,
+};

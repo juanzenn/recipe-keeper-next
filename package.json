@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.5.0",
+    "@supabase/supabase-js": "^1.21.1",
     "akar-icons": "^1.8.2",
     "next": "11.0.1",
     "react": "17.0.2",

@@ -94,14 +94,14 @@ export default function AppNavigation({ view }: Props) {
     <nav
       className={
         open
-          ? `fixed top-0 h-screen w-1/5 px-4 pt-4 pb-6 flex flex-col justify-between flex-shrink-0  border-r border-gray-200 bg-white`
+          ? `fixed top-0 h-screen w-1/5 px-4 pt-4 pb-6 flex flex-col justify-between flex-shrink-0  border-r border-gray-200 bg-white z-50`
           : `fixed top-0 h-screen w-[5%] pt-4 pb-6 flex flex-col items-center flex-shrink-0  border-r border-gray-200 bg-white`
       }>
       <section>
         <NavigationBrand open={open} setOpen={setOpen} />
 
         <ul className='space-y-4'>
-          <NavigationItem
+          {/* <NavigationItem
             open={open}
             text={'Dashboard'}
             icon={<Home size={24} />}
@@ -110,7 +110,7 @@ export default function AppNavigation({ view }: Props) {
             }}
             selected={view === 'dashboard' ? true : false}
             link={'/app'}
-          />
+          /> */}
 
           <NavigationItem
             open={open}
@@ -134,7 +134,7 @@ export default function AppNavigation({ view }: Props) {
             link={'/app/discover'}
           />
 
-          <NavigationItem
+          {/* <NavigationItem
             open={open}
             text={'Meal Planner'}
             icon={<Utensils size={24} />}
@@ -143,7 +143,7 @@ export default function AppNavigation({ view }: Props) {
             }}
             selected={view === 'mealPlanner' ? true : false}
             link={'/app'}
-          />
+          /> */}
         </ul>
       </section>
 
