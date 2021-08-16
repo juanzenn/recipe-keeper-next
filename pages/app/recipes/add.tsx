@@ -8,7 +8,6 @@ import React, { useState } from 'react';
 import { useNumberInput, useTextInput } from '@hooks/formHooks';
 import { Ingredient } from '@hooks/ingredient';
 import TagSelector from '@components/AppComponents/TagSelector';
-import Label from '@components/common/Label';
 import { Button } from '@components/common/Button';
 
 export default function Add() {
@@ -29,7 +28,7 @@ export default function Add() {
 
   const [recipeName, changeRecipeName] = useTextInput('');
   const [description, changeDescription] = useTextInput('');
-  const [time, changeTime] = useNumberInput(0);
+  const [time, changeTime] = useTextInput('');
   const [servings, changeServings] = useNumberInput(0);
 
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
@@ -39,15 +38,6 @@ export default function Add() {
   const [instructions, setInstructions] = useTextInput('');
 
   const [picture, setPicture] = useState<any>('');
-
-  function handleTagDelete(tag: string): void {
-    const index = selectedTags.indexOf(tag);
-
-    const firstHalf = selectedTags.slice(0, index);
-    const secondHalf = selectedTags.slice(index + 1);
-
-    setSelectedTags(firstHalf.concat(secondHalf));
-  }
 
   function handleImageUpload(event: any) {
     setPicture(event.target.files[0]);
@@ -64,6 +54,7 @@ export default function Add() {
         subtitle="Fill the form with your recipe's information"></ViewHeader>
 
       <form className='grid grid-cols-2 gap-8' onSubmit={handleSubmit}>
+        {/* Recipe name */}
         <Input
           value={recipeName}
           onChange={event => {
@@ -75,6 +66,7 @@ export default function Add() {
         />
 
         <div className='w-full'>
+          {/* Recipe image */}
           <label className='inline-block mb-2 font-bold tracking-wide text-sm text-gray-900'>
             Recipe image
           </label>
@@ -86,6 +78,7 @@ export default function Add() {
         </div>
 
         <div className='col-span-2'>
+          {/* Recipe description */}
           <Input
             value={description}
             onChange={event => {
@@ -96,16 +89,20 @@ export default function Add() {
             label='Description'
           />
         </div>
+
         <div className='space-y-6'>
+          {/* Recipe time */}
           <Input
             value={time}
             onChange={event => {
               changeTime(event);
             }}
-            type='number'
+            type='text'
             label='Time'
-            placeholder='In hours...'
+            placeholder='25 minutes'
           />
+
+          {/* Recipe services */}
           <Input
             value={servings}
             onChange={event => {
@@ -118,34 +115,18 @@ export default function Add() {
         </div>
 
         <article>
+          {/* Tags */}
           <TagSelector
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}
           />
-          <section className='flex gap-4 mt-4'>
-            {selectedTags.length === 0 ? (
-              <p className='text-sm text-gray-600 tracking-tight'>
-                No selected tags.
-              </p>
-            ) : (
-              selectedTags.map((tag, index) => (
-                <Label
-                  key={`tag-${index}`}
-                  onClick={() => handleTagDelete(tag)}
-                  type={tag}>
-                  {tag}
-                </Label>
-              ))
-            )}
-          </section>
         </article>
 
-        <Ingredients
-          setIngredients={setIngredients}
-          ingredients={ingredients}
-        />
+        {/* Ingredients */}
+        <Ingredients />
 
         <article>
+          {/* Instructions */}
           <Input
             value={instructions}
             onChange={event => {
