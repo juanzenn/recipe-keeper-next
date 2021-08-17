@@ -1,37 +1,30 @@
 import { ButtonOutlined } from '@components/common/Button';
 import { Ingredient as IngredientInterface } from '@hooks/ingredient';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import createRandomID from '@lib/randomid';
 import IngredientsBlock, { BlockOfIngredients } from './IngredientsBlock';
 
+import { TrashCan } from 'akar-icons';
+
 interface Props {
-  setIngredients: (value: IngredientInterface[]) => void;
-  ingredients: IngredientInterface[];
+  setIngredients: (value: Block[]) => void;
 }
 
 // Ingredients: The global component that will store every block
 
-interface Block {
+export interface Block {
   id: string;
   block: BlockOfIngredients;
 }
 
-export default function Ingredients() {
-  const [blocks, setBlocks] = useState<Block[]>([
-    {
-      id: createRandomID(),
-      block: {
-        blockTitle: 'Block',
-        ingredients: [],
-      },
-    },
-  ]);
+export default function Ingredients({ setIngredients }: Props) {
+  const [blocks, setBlocks] = useState<Block[]>([]);
 
   function addBlock() {
     const block: Block = {
       id: createRandomID(),
       block: {
-        blockTitle: 'Block',
+        blockTitle: '',
         ingredients: [],
       },
     };
@@ -53,27 +46,49 @@ export default function Ingredients() {
     setBlocks(newBlocksList);
   }
 
+  function updateBlock(id: string, updatedBlock: BlockOfIngredients) {
+    const updatedBlocks = blocks.map(block => {
+      if (block.id === id) {
+        return {
+          ...block,
+          block: updatedBlock,
+        };
+      }
+
+      return block;
+    });
+
+    setBlocks(updatedBlocks);
+  }
+
+  useEffect(() => {
+    setIngredients(blocks);
+  }, [blocks]);
+
   return (
     <section>
-      <p className='font-bold text-xl tracking-tight mb-2'>Ingredients</p>
-      <p className='w-max text-xs text-gray-500 transition-all mb-6'>
+      <p className='font-bold text-2xl tracking-tight mb-1 text-primary-600'>
+        Ingredients
+      </p>
+      <p className='w-full text-gray-600 mb-4'>
         Add blocks for every part of your recipe. Ex: sauces, main dish, a
         complement, etc.
       </p>
 
-      {blocks.map(block => (
-        <article
-          key={block.id}
-          className='px-2 py-4 space-y-4 shadow-md rounded-sm mb-6'>
-          <IngredientsBlock blockTitle={block.block.blockTitle} />
-          <button
-            type='button'
-            onClick={() => removeBlock(block.id)}
-            className='w-max text-xs text-gray-600 hover:text-primary-500 transition-all'>
-            Remove block
-          </button>
-        </article>
-      ))}
+      <section className='space-y-6 mb-8'>
+        {blocks.map(block => (
+          <article key={block.id}>
+            <IngredientsBlock blockId={block.id} updateBlock={updateBlock} />
+            <button
+              type='button'
+              onClick={() => removeBlock(block.id)}
+              className='w-full text-sm text-gray-600 hover:text-primary-600 transition-all flex gap-1 items-center justify-end'>
+              <TrashCan size={16} />
+              Remove block
+            </button>
+          </article>
+        ))}
+      </section>
 
       <ButtonOutlined
         className='px-6 py-2 text-sm tracking-wide'

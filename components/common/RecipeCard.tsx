@@ -40,7 +40,7 @@ export default function RecipeCard(props: Props) {
       <section className='flex gap-2 mb-3'>
         {labels.map((label, index) => (
           <Label key={`labale-${index}`} type={label}>
-            {label}
+            {label[0].toUpperCase() + label.slice(1)}
           </Label>
         ))}
       </section>

@@ -12,7 +12,7 @@ export default function Label({ children, type, onClick }: Props) {
       return (
         <div
           onClick={onClick}
-          className={`w-max cursor-pointer px-4 py-1 text-sm rounded-md bg-yellow-200 text-yellow-400`}>
+          className={`w-max cursor-pointer px-6 py-2 text-sm rounded-md bg-yellow-100 hover:brightness-105 transition-all text-yellow-600`}>
           {children}
         </div>
       );
@@ -20,7 +20,7 @@ export default function Label({ children, type, onClick }: Props) {
       return (
         <div
           onClick={onClick}
-          className={`w-max cursor-pointer px-4 py-1 text-sm rounded-md bg-blue-200 text-blue-400`}>
+          className={`w-max cursor-pointer px-6 py-2 text-sm rounded-md bg-blue-100 hover:brightness-105 transition-all text-blue-600`}>
           {children}
         </div>
       );
@@ -28,7 +28,7 @@ export default function Label({ children, type, onClick }: Props) {
       return (
         <div
           onClick={onClick}
-          className={`w-max cursor-pointer px-4 py-1 text-sm rounded-md bg-pink-200 text-pink-400`}>
+          className={`w-max cursor-pointer px-6 py-2 text-sm rounded-md bg-pink-100 hover:brightness-105 transition-all text-pink-600`}>
           {children}
         </div>
       );
@@ -36,7 +36,7 @@ export default function Label({ children, type, onClick }: Props) {
       return (
         <div
           onClick={onClick}
-          className={`w-max cursor-pointer px-4 py-1 text-sm rounded-md bg-green-200 text-green-400`}>
+          className={`w-max cursor-pointer px-6 py-2 text-sm rounded-md bg-green-100 hover:brightness-105 transition-all text-green-600`}>
           {children}
         </div>
       );
@@ -44,7 +44,7 @@ export default function Label({ children, type, onClick }: Props) {
       return (
         <div
           onClick={onClick}
-          className={`w-max cursor-pointer px-4 py-1 text-sm rounded-md bg-emerald-200 text-emerald-400`}>
+          className={`w-max cursor-pointer px-6 py-2 text-sm rounded-md bg-emerald-100 hover:brightness-105 transition-all text-emerald-600`}>
           {children}
         </div>
       );
@@ -52,7 +52,7 @@ export default function Label({ children, type, onClick }: Props) {
       return (
         <div
           onClick={onClick}
-          className={`w-max cursor-pointer px-4 py-1 text-sm rounded-md bg-red-200 text-red-400`}>
+          className={`w-max cursor-pointer px-6 py-2 text-sm rounded-md bg-red-100 hover:brightness-105 transition-all text-red-600`}>
           {children}
         </div>
       );
@@ -60,7 +60,7 @@ export default function Label({ children, type, onClick }: Props) {
       return (
         <div
           onClick={onClick}
-          className={`w-max cursor-pointer px-4 py-1 text-sm rounded-md bg-orange-200 text-orange-400`}>
+          className={`w-max cursor-pointer px-6 py-2 text-sm rounded-md bg-orange-100 hover:brightness-105 transition-all text-orange-600`}>
           {children}
         </div>
       );
@@ -68,7 +68,7 @@ export default function Label({ children, type, onClick }: Props) {
       return (
         <div
           onClick={onClick}
-          className={`w-max cursor-pointer px-4 py-1 text-sm rounded-md bg-blue-200 text-blue-400`}>
+          className={`w-max cursor-pointer px-6 py-2 text-sm rounded-md bg-blue-100 hover:brightness-105 transition-all text-blue-600`}>
           {children}
         </div>
       );
@@ -76,7 +76,7 @@ export default function Label({ children, type, onClick }: Props) {
       return (
         <div
           onClick={onClick}
-          className={`w-max cursor-pointer px-4 py-1 text-sm rounded-md bg-fuchsia-200 text-fuchsia-400`}>
+          className={`w-max cursor-pointer px-6 py-2 text-sm rounded-md bg-fuchsia-100 hover:brightness-105 transition-all text-fuchsia-600`}>
           {children}
         </div>
       );

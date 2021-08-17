@@ -6,9 +6,10 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 
 import { useNumberInput, useTextInput } from '@hooks/formHooks';
-import { Ingredient } from '@hooks/ingredient';
 import TagSelector from '@components/AppComponents/TagSelector';
 import { Button } from '@components/common/Button';
+
+import { Block as IngredientsInterface } from '@components/AppComponents/Ingredients';
 
 export default function Add() {
   function handleSubmit(event: React.FormEvent) {
@@ -29,14 +30,10 @@ export default function Add() {
   const [recipeName, changeRecipeName] = useTextInput('');
   const [description, changeDescription] = useTextInput('');
   const [time, changeTime] = useTextInput('');
-  const [servings, changeServings] = useNumberInput(0);
-
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
-
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-
   const [instructions, setInstructions] = useTextInput('');
-
+  const [servings, changeServings] = useNumberInput(0);
+  const [ingredients, setIngredients] = useState<IngredientsInterface[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [picture, setPicture] = useState<any>('');
 
   function handleImageUpload(event: any) {
@@ -67,13 +64,13 @@ export default function Add() {
 
         <div className='w-full'>
           {/* Recipe image */}
-          <label className='inline-block mb-2 font-bold tracking-wide text-sm text-gray-900'>
-            Recipe image
+          <label className='inline-block mb-2 font-bold tracking-wide text-primary-600'>
+            Cover image
           </label>
           <input
             type='file'
             onChange={e => handleImageUpload(e)}
-            className='w-full text-base bg-transparent p-2 text-primary-400 focus:text-primary-500 placeholder-primary-300 focus:outline-none'
+            className='w-full bg-transparent text-gray-800'
           />
         </div>
 
@@ -123,7 +120,7 @@ export default function Add() {
         </article>
 
         {/* Ingredients */}
-        <Ingredients />
+        <Ingredients setIngredients={setIngredients} />
 
         <article>
           {/* Instructions */}

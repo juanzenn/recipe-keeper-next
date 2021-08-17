@@ -104,13 +104,13 @@ export default function TagSelector({ selectedTags, setSelectedTags }: Props) {
   return (
     <section>
       <section className='w-full'>
-        <label className='inline-block mb-2 font-bold tracking-wide text-sm text-gray-900'>
+        <label className='inline-block mb-1 font-bold tracking-wide text-primary-600'>
           Tags
         </label>
         <select
           value={tag ? tag : ''}
           onChange={addTag}
-          className='w-full text-base bg-transparent p-2 tracking-wide text-primary-500 placeholder-primary-300 border-2 border-primary-300 hover:border-primary-500 rounded-md shadow-md focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 resize-none'>
+          className='w-full text-base bg-white p-2 rounded shadow-sm border border-gray-300 hover:border-primary-300 focus:outline-none focus:border-primary-300 focus:ring focus:ring-primary-200'>
           <option value='null'>Select a tag</option>
           {availableTags.map(tag => (
             <option key={`${tag}`} value={tag}>

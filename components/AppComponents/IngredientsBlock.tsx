@@ -1,6 +1,5 @@
-import { ButtonOutlined } from '@components/common/Button';
 import createRandomID from '@lib/randomid';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Ingredient from './Ingredient';
 
 // A block that will store every ingredient
@@ -16,17 +15,20 @@ export interface BlockOfIngredients {
 }
 
 interface Props {
-  blockTitle: string;
+  blockId: string;
+  updateBlock: (id: string, updatedBlock: BlockOfIngredients) => void;
 }
 
-export default function IngredientsBlock({ blockTitle }: Props) {
+export default function IngredientsBlock({ blockId, updateBlock }: Props) {
   const [blockOfIngredients, setBlockOfIngredients] =
     useState<BlockOfIngredients>({
-      blockTitle: blockTitle,
+      blockTitle: '',
       ingredients: [],
     });
 
-  function addItem() {
+  const blockTitleRef = useRef<HTMLInputElement>(null);
+
+  function addIngredient() {
     const ingredient: IngredientInterface = {
       id: createRandomID(),
       ingredient: '',
@@ -81,11 +83,31 @@ export default function IngredientsBlock({ blockTitle }: Props) {
     });
   }
 
+  function updateTitle() {
+    setBlockOfIngredients(state => {
+      return {
+        ...state,
+        blockTitle: blockTitleRef.current?.value
+          ? blockTitleRef.current.value
+          : '',
+      };
+    });
+  }
+
+  useEffect(() => {
+    updateBlock(blockId, blockOfIngredients);
+  }, [blockOfIngredients]);
+
   return (
-    <section>
-      <p className='mb-2 font-bold text-lg tracking-tight text-gray-500'>
-        {blockOfIngredients.blockTitle}
-      </p>
+    <section className='p-4 mb-2 shadow rounded border border-gray-300'>
+      <input
+        type='text'
+        placeholder='Block title'
+        className='w-full p-2 mb-4 rounded-sm font-semibold text-lg text-gray-600 placeholder-gray-300 border-b border-gray-300 hover:border-primary-300 focus:border-primary-300 focus:outline-none focus:ring focus:ring-primary-200'
+        ref={blockTitleRef}
+        value={blockTitleRef.current?.value}
+        onChange={updateTitle}
+      />
 
       {blockOfIngredients.ingredients.map(ingredient => {
         return (
@@ -104,11 +126,11 @@ export default function IngredientsBlock({ blockTitle }: Props) {
         );
       })}
 
-      <ButtonOutlined
-        className='px-6 py-2 text-sm tracking-wide'
-        onClick={addItem}>
+      <button
+        className='px-6 py-2 text-sm font-medium text-primary-600 shadow-sm tracking-wide bg-primary-100 hover:bg-primary-200 rounded-md transition-all'
+        onClick={addIngredient}>
         Add ingredient
-      </ButtonOutlined>
+      </button>
     </section>
   );
 }

@@ -24,13 +24,13 @@ export default function Input({
   onChange,
 }: Props) {
   const styles =
-    'w-full text-base bg-transparent p-2 tracking-wide text-primary-500 placeholder-primary-300 border-2 border-primary-300 hover:border-primary-500 rounded-md shadow-md focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 resize-none';
+    'w-full text-base bg-white p-2 rounded shadow-sm border border-gray-300 hover:border-primary-300 focus:outline-none focus:border-primary-300 focus:ring focus:ring-primary-200 resize-none';
 
   switch (type) {
     case 'text':
       return (
         <div className='w-full'>
-          <label className='inline-block font-bold tracking-wide text-sm text-gray-900 mb-2'>
+          <label className='inline-block font-bold tracking-wide text-primary-600 mb-1'>
             {label}
           </label>
           <input
@@ -45,7 +45,7 @@ export default function Input({
     case 'number':
       return (
         <div className='w-full'>
-          <label className='inline-block mb-2 font-bold tracking-wide text-sm text-gray-900'>
+          <label className='inline-block mb-1 font-bold tracking-wide text-primary-600'>
             {label}
           </label>
           <input
@@ -61,7 +61,7 @@ export default function Input({
     case 'select':
       return (
         <div className='w-full'>
-          <label className='inline-block mb-2 font-bold tracking-wide text-sm text-gray-900'>
+          <label className='inline-block mb-1 font-bold tracking-wide text-primary-600'>
             {label}
           </label>
           <select
@@ -79,7 +79,7 @@ export default function Input({
     case 'textarea':
       return (
         <div className='w-full'>
-          <label className='inline-block mb-2 font-bold tracking-wide text-sm text-gray-900'>
+          <label className='inline-block mb-1 font-bold tracking-wide text-primary-600'>
             {label}
           </label>
           <textarea
