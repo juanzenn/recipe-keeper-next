@@ -4,7 +4,7 @@ function getRandomIntInclusive(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 }
 
-export default function createRandomID(): string {
+function createRandomID(): string {
   let letters =
     '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
   let id = '';
@@ -16,4 +16,10 @@ export default function createRandomID(): string {
   return id;
 }
 
-export { createRandomID };
+function strToSlug(str: string): string {
+  return str.toLowerCase().replace(/\s/g, '-');
+}
+
+console.log(strToSlug('hello friends lets try this one'));
+
+export { createRandomID, strToSlug };

@@ -7,6 +7,7 @@ interface Props {
   label?: string;
   options?: string[];
   value: string | number;
+  required?: boolean;
   onChange: (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -21,6 +22,7 @@ export default function Input({
   label,
   options,
   value,
+  required = true,
   onChange,
 }: Props) {
   const styles =
@@ -34,6 +36,7 @@ export default function Input({
             {label}
           </label>
           <input
+            required={required}
             value={value}
             onChange={onChange}
             type='text'
@@ -49,6 +52,7 @@ export default function Input({
             {label}
           </label>
           <input
+            required={required}
             value={value}
             onChange={onChange}
             min={0}
@@ -65,6 +69,7 @@ export default function Input({
             {label}
           </label>
           <select
+            required={required}
             value={value}
             onChange={onChange}
             placeholder={placeholder}
@@ -83,6 +88,7 @@ export default function Input({
             {label}
           </label>
           <textarea
+            required={required}
             value={value}
             onChange={onChange}
             placeholder={placeholder}
@@ -94,6 +100,7 @@ export default function Input({
       return (
         <div className='w-full flex items-center border-2 border-white rounded-md pl-2 pr-4 py-1'>
           <input
+            required={required}
             value={value}
             onChange={onChange}
             className='w-full text-base bg-transparent tracking-wide text-white placeholder-gray-50 focus:outline-none focus:border-none'

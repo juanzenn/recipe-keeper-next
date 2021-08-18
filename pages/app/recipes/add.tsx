@@ -11,20 +11,35 @@ import { Button } from '@components/common/Button';
 
 import { Block as IngredientsInterface } from '@components/AppComponents/Ingredients';
 
+import { addRecipe, Recipe, uploadImage } from '@lib/supabase';
+import { createRandomID, strToSlug } from '@lib/randomid';
+
 export default function Add() {
-  function handleSubmit(event: React.FormEvent) {
+  async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    const recipe = {
-      name: recipeName,
+
+    const newId = createRandomID();
+    const imageName = `${newId}.${picture.name.split('.').pop()}`;
+
+    const recipe: Recipe = {
+      id: newId,
+      image: imageName,
+      author_id: localStorage.getItem('user-id'),
+      title: recipeName,
+      slug: strToSlug(recipeName),
       description: description,
-      cooking_time: time,
-      servings_per_recipe: servings,
       tags: selectedTags,
       ingredients: ingredients,
+      servings: servings,
+      'cooking-time': time,
       instructions: instructions,
-      image: picture,
     };
-    console.log(recipe);
+
+    const pictureData = await uploadImage(picture, imageName);
+    const recipeData = await addRecipe(recipe);
+
+    console.log(pictureData);
+    console.log(recipeData);
   }
 
   const [recipeName, changeRecipeName] = useTextInput('');
@@ -37,7 +52,15 @@ export default function Add() {
   const [picture, setPicture] = useState<any>('');
 
   function handleImageUpload(event: any) {
-    setPicture(event.target.files[0]);
+    const file = event.target.files[0];
+
+    if (Number((file.size / 1024 / 1024).toFixed(4)) >= 3) {
+      alert('File should be less than 3MB.');
+      setPicture('');
+      return;
+    } else {
+      setPicture(file);
+    }
   }
 
   return (
@@ -52,29 +75,45 @@ export default function Add() {
 
       <form className='grid grid-cols-2 gap-8' onSubmit={handleSubmit}>
         {/* Recipe name */}
-        <Input
-          value={recipeName}
-          onChange={event => {
-            changeRecipeName(event);
-          }}
-          type='text'
-          placeholder='Tacos al pastor'
-          label='Recipe name'
-        />
+        <div className='w-full space-y-2'>
+          <Input
+            value={recipeName}
+            onChange={event => {
+              changeRecipeName(event);
+            }}
+            type='text'
+            placeholder='Tacos al pastor'
+            label='Recipe name'
+          />
+          <p className='text-sm text-gray-400 tracking-tight'>
+            {/[!-\/:-@[-`{-~]/.test(recipeName) ? (
+              <span className='text-primary-500'>
+                No special characters (/-*.;,)
+              </span>
+            ) : (
+              `Only letters and numbers.`
+            )}
+          </p>
+        </div>
 
         <div className='w-full'>
           {/* Recipe image */}
-          <label className='inline-block mb-2 font-bold tracking-wide text-primary-600'>
+          <label className='inline-block mb-1 font-bold tracking-wide text-primary-600'>
             Cover image
           </label>
           <input
+            accept={'.png,.jpg'}
+            required
             type='file'
             onChange={e => handleImageUpload(e)}
-            className='w-full bg-transparent text-gray-800'
+            className='w-full bg-transparent text-gray-800 mb-2'
           />
+          <p className='text-sm text-gray-400 tracking-tight'>
+            3mb max, PNG or JPG format.
+          </p>
         </div>
 
-        <div className='col-span-2'>
+        <div className='col-span-2 space-y-2'>
           {/* Recipe description */}
           <Input
             value={description}
@@ -85,19 +124,33 @@ export default function Add() {
             placeholder='Tacos al pastor are the best mexican tacos'
             label='Description'
           />
+          <p className='text-sm text-gray-400 tracking-tight'>
+            Markdown syntax available.
+          </p>
         </div>
 
         <div className='space-y-6'>
           {/* Recipe time */}
-          <Input
-            value={time}
-            onChange={event => {
-              changeTime(event);
-            }}
-            type='text'
-            label='Time'
-            placeholder='25 minutes'
-          />
+          <div className='space-y-2'>
+            <Input
+              value={time}
+              onChange={event => {
+                changeTime(event);
+              }}
+              type='text'
+              label='Time'
+              placeholder='25 minutes'
+            />
+            <p className='text-sm text-gray-400 tracking-tight'>
+              {/[!-\/:-@[-`{-~]/.test(time) ? (
+                <span className='text-primary-500'>
+                  No special characters (/-*.;,)
+                </span>
+              ) : (
+                `Only letters and numbers.`
+              )}
+            </p>
+          </div>
 
           {/* Recipe services */}
           <Input
@@ -122,7 +175,7 @@ export default function Add() {
         {/* Ingredients */}
         <Ingredients setIngredients={setIngredients} />
 
-        <article>
+        <article className='space-y-2'>
           {/* Instructions */}
           <Input
             value={instructions}
@@ -134,7 +187,7 @@ export default function Add() {
             label='Instructions'
           />
           <p className='text-sm text-gray-600 tracking-tight'>
-            This field accepts Markdown syntax.
+            Markdown syntax available.
           </p>
         </article>
 

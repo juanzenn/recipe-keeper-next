@@ -1,7 +1,7 @@
 import { ButtonOutlined } from '@components/common/Button';
 import { Ingredient as IngredientInterface } from '@hooks/ingredient';
 import React, { useEffect, useState } from 'react';
-import createRandomID from '@lib/randomid';
+import { createRandomID } from '@lib/randomid';
 import IngredientsBlock, { BlockOfIngredients } from './IngredientsBlock';
 
 import { TrashCan } from 'akar-icons';

@@ -1,4 +1,4 @@
-import createRandomID from '@lib/randomid';
+import { createRandomID } from '@lib/randomid';
 import React, { useState, useRef, useEffect } from 'react';
 import Ingredient from './Ingredient';
 

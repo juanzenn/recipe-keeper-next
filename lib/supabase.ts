@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
-import { Ingredients } from '@hooks/ingredient';
+
+import { Block } from '@components/AppComponents/Ingredients';
 
 const supabaseUrl = String(process.env.NEXT_PUBLIC_SUPABASE_URL);
 const supabaseAnonKey = String(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
@@ -14,17 +15,34 @@ export interface Recipe {
   slug: string | null;
   description: string | null;
   tags: string[] | null;
-  ingredients: Ingredients[] | null;
+  ingredients: Block[] | null;
   servings: number | null;
   'cooking-time': string | null;
   instructions: string | null;
 }
 
+async function uploadImage(image: File, fileName: string) {
+  try {
+    const { data, error } = await supabase.storage
+      .from('images')
+      .upload(`${fileName}`, image);
+
+    if (error !== null) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 async function addRecipe(recipe: Recipe) {
   const recipeToAdd = {
     id: recipe.id,
-    image: recipe.image,
     author_id: recipe.author_id,
+    image: recipe.image,
     title: recipe.title,
     slug: recipe.slug,
     description: recipe.description,
@@ -206,4 +224,5 @@ export {
   getDiscoveryRecipes,
   getRecipeById,
   getRecipeForEdition,
+  uploadImage,
 };
