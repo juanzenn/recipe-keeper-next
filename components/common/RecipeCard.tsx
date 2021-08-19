@@ -51,19 +51,19 @@ export default function RecipeCard(props: Props) {
       <footer className='flex gap-4'>
         <Button className={userRecipe ? `w-3/4` : ' w-full'}>
           <Link href={`/app/recipes/${recipeId}`}>
-            <a className='w-full px-6 py-2 inline-block'>Add a recipe</a>
+            <a className='w-full px-6 py-2 inline-block'>See Recipe</a>
           </Link>
         </Button>
 
         {/* Condition for the edit button if it is a userRecipe*/}
         {userRecipe ? (
-          <ButtonSecondary className='w-1/4 flex items-center justify-center'>
+          <button className='w-1/4 flex items-center justify-center'>
             <Link href={`/app/recipes/edit/${recipeId}`}>
-              <a className='w-full px-6 py-2 flex items-center justify-center'>
+              <a className='w-full px-6 py-2 flex items-center justify-center rounded hover:bg-gray-200 transition-all'>
                 <Pencil size={20} />
               </a>
             </Link>
-          </ButtonSecondary>
+          </button>
         ) : null}
       </footer>
     </article>

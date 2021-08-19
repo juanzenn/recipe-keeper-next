@@ -3,7 +3,6 @@ import React from 'react';
 import Head from 'next/head';
 import Text from '@components/common/Text';
 import ViewHeader from '@components/common/ViewHeader';
-import RecipeCard from '@components/common/RecipeCard';
 import { ButtonSecondary } from '@components/common/Button';
 
 import AppLayout from '@components/layout/AppLayout';
@@ -13,15 +12,12 @@ import Input from '@components/common/Input';
 import Dropdown from '@components/common/Dropdown';
 import Link from 'next/link';
 import { getUserRecipe } from '@lib/supabase';
+import RecipesContainer, {
+  RecipeData,
+} from '@components/common/RecipesContainer';
 
 interface Props {
-  recipes: {
-    id: string;
-    title: string;
-    image: string;
-    tags: string[];
-    'cooking-time': string;
-  }[];
+  recipes: RecipeData[];
 }
 
 export default function Recipes(props: Props) {
@@ -62,43 +58,7 @@ export default function Recipes(props: Props) {
         </NavigationContainer>
       </nav>
 
-      {/* <pre>{JSON.stringify(recipes, null, 2)}</pre> */}
-
-      <section className='grid grid-cols-3 gap-4 gap-y-12'>
-        {recipes.map(recipe => (
-          <RecipeCard
-            key={recipe.id}
-            recipeId={recipe.id}
-            userRecipe={true}
-            imageURL={recipe.image}
-            recipeTitle={recipe.title}
-            labels={recipe.tags}
-            time={recipe['cooking-time']}
-          />
-        ))}
-        {recipes.map(recipe => (
-          <RecipeCard
-            key={recipe.id}
-            recipeId={recipe.id}
-            userRecipe={true}
-            imageURL={recipe.image}
-            recipeTitle={recipe.title}
-            labels={recipe.tags}
-            time={recipe['cooking-time']}
-          />
-        ))}
-        {recipes.map(recipe => (
-          <RecipeCard
-            key={recipe.id}
-            recipeId={recipe.id}
-            userRecipe={true}
-            imageURL={recipe.image}
-            recipeTitle={recipe.title}
-            labels={recipe.tags}
-            time={recipe['cooking-time']}
-          />
-        ))}
-      </section>
+      <RecipesContainer recipes={recipes} userRecipe={true} />
     </>
   );
 }

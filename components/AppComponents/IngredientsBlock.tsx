@@ -127,6 +127,7 @@ export default function IngredientsBlock({ blockId, updateBlock }: Props) {
       })}
 
       <button
+        type='button'
         className='px-6 py-2 text-sm font-medium text-primary-600 shadow-sm tracking-wide bg-primary-100 hover:bg-primary-200 rounded-md transition-all'
         onClick={addIngredient}>
         Add ingredient

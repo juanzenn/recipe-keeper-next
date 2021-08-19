@@ -140,7 +140,20 @@ async function getDiscoveryRecipes(userId: string | null) {
   }
 }
 
-async function getRecipeById(recipeId: string | null) {
+export interface SingleRecipe {
+  title: string;
+  image: string;
+  slug: string;
+  description: string;
+  tags: string[];
+  ingredients: Block[];
+  servings: number;
+  cookingTime: string;
+  instructions: string;
+  author: any;
+}
+
+async function getRecipeById(recipeId: string | string[] | undefined) {
   try {
     const { data, error } = await supabase
       .from('recipes')
@@ -177,7 +190,7 @@ async function getRecipeById(recipeId: string | null) {
         tags: data[0].tags,
         ingredients: data[0].ingredients,
         servings: data[0].servings,
-        'cooking-time': data[0]['cooking-time'],
+        cookingTime: data[0]['cooking-time'],
         instructions: data[0].instructions,
         author: data[0].author,
       };

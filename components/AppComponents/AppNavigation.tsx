@@ -159,8 +159,12 @@ export default function AppNavigation({ view }: Props) {
             selected={view === 'userSettings' ? true : false}
             link={'/app'}
           />
-          <li className='cursor-pointer bg-primary-500 hover:bg-primary-400 px-4 py-2 flex gap-4 items-center text-lg tracking-wide w-max rounded-md text-white shadow-md duration-300'>
-            <SignOut size={24} /> Log Out
+          <li className='cursor-pointer bg-primary-500 hover:bg-primary-400 text-lg tracking-wide w-max rounded-md text-white shadow-md duration-300'>
+            <Link href='/api/auth/logout'>
+              <a className='px-4 py-2 flex gap-4 items-center'>
+                <SignOut size={24} /> Log Out
+              </a>
+            </Link>
           </li>
         </ul>
       ) : null}

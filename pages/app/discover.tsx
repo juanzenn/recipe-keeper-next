@@ -10,15 +10,12 @@ import { Search } from 'akar-icons';
 import Input from '@components/common/Input';
 import Dropdown from '@components/common/Dropdown';
 import { getDiscoveryRecipes } from '@lib/supabase';
+import RecipesContainer, {
+  RecipeData,
+} from '@components/common/RecipesContainer';
 
 interface Props {
-  recipes: {
-    id: string;
-    title: string;
-    image: string;
-    tags: string[];
-    'cooking-time': string;
-  }[];
+  recipes: RecipeData[];
 }
 
 export default function Discover(props: Props) {
@@ -49,19 +46,7 @@ export default function Discover(props: Props) {
         </NavigationContainer>
       </nav>
 
-      <section className='grid grid-cols-3 gap-x-4 gap-y-12'>
-        {recipes.map(recipe => (
-          <RecipeCard
-            key={recipe.id}
-            recipeId={recipe.id}
-            userRecipe={false}
-            imageURL={recipe.image}
-            recipeTitle={recipe.title}
-            labels={recipe.tags}
-            time={recipe['cooking-time']}
-          />
-        ))}
-      </section>
+      <RecipesContainer recipes={recipes} />
     </>
   );
 }

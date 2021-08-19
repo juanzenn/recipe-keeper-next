@@ -13,8 +13,18 @@ import { Block as IngredientsInterface } from '@components/AppComponents/Ingredi
 
 import { addRecipe, Recipe, uploadImage } from '@lib/supabase';
 import { createRandomID, strToSlug } from '@lib/randomid';
+import GoBack from '@components/common/GoBack';
 
 export default function Add() {
+  const [recipeName, changeRecipeName] = useTextInput('');
+  const [description, changeDescription] = useTextInput('');
+  const [time, changeTime] = useTextInput('');
+  const [instructions, setInstructions] = useTextInput('');
+  const [servings, changeServings] = useNumberInput(0);
+  const [ingredients, setIngredients] = useState<IngredientsInterface[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [picture, setPicture] = useState<any>('');
+
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
@@ -42,15 +52,6 @@ export default function Add() {
     console.log(recipeData);
   }
 
-  const [recipeName, changeRecipeName] = useTextInput('');
-  const [description, changeDescription] = useTextInput('');
-  const [time, changeTime] = useTextInput('');
-  const [instructions, setInstructions] = useTextInput('');
-  const [servings, changeServings] = useNumberInput(0);
-  const [ingredients, setIngredients] = useState<IngredientsInterface[]>([]);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [picture, setPicture] = useState<any>('');
-
   function handleImageUpload(event: any) {
     const file = event.target.files[0];
 
@@ -69,9 +70,12 @@ export default function Add() {
         <title>Recipe Keeper - Add Recipe</title>
       </Head>
 
+      <GoBack />
+
       <ViewHeader
         title='Add new recipe'
-        subtitle="Fill the form with your recipe's information"></ViewHeader>
+        subtitle="Fill the form with your recipe's information"
+      />
 
       <form className='grid grid-cols-2 gap-8' onSubmit={handleSubmit}>
         {/* Recipe name */}
@@ -191,11 +195,16 @@ export default function Add() {
           </p>
         </article>
 
-        <Button
-          type='submit'
-          className='w-max p-4 bg-primary-500 text-white col-span-2'>
-          Create new recipe
-        </Button>
+        <section
+          id='buttons'
+          className='col-span-2 flex justify-end gap-6 mt-6'>
+          <GoBack />
+          <Button
+            type='submit'
+            className='w-max p-4 bg-primary-500 text-white col-span-2'>
+            Create new recipe
+          </Button>
+        </section>
       </form>
     </>
   );

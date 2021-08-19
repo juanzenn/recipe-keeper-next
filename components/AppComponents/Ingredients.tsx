@@ -92,6 +92,7 @@ export default function Ingredients({ setIngredients }: Props) {
 
       <ButtonOutlined
         className='px-6 py-2 text-sm tracking-wide'
+        type='button'
         onClick={addBlock}>
         Add block
       </ButtonOutlined>
