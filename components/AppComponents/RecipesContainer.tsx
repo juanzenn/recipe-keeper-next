@@ -1,5 +1,5 @@
-import React from 'react';
-import RecipeCard from './RecipeCard';
+import React, { useEffect, useState } from 'react';
+import RecipeCard from '../common/RecipeCard';
 
 export interface RecipeData {
   id: string;

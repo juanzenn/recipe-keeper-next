@@ -101,7 +101,7 @@ export default function AppNavigation({ view }: Props) {
         <NavigationBrand open={open} setOpen={setOpen} />
 
         <ul className='space-y-4'>
-          {/* <NavigationItem
+          <NavigationItem
             open={open}
             text={'Dashboard'}
             icon={<Home size={24} />}
@@ -110,7 +110,7 @@ export default function AppNavigation({ view }: Props) {
             }}
             selected={view === 'dashboard' ? true : false}
             link={'/app'}
-          /> */}
+          />
 
           <NavigationItem
             open={open}

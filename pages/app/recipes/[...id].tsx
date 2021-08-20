@@ -10,6 +10,7 @@ import GoBack from '@components/common/GoBack';
 import Head from 'next/head';
 import Image from 'next/image';
 import React from 'react';
+import PDF from '@components/PDF';
 
 const marked = require('marked');
 
@@ -132,6 +133,8 @@ export default function Recipe({ recipe }: Props) {
           </section>
         </section>
       </main>
+
+      <PDF recipe={recipe} />
     </>
   );
 }
@@ -139,6 +142,12 @@ export default function Recipe({ recipe }: Props) {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   if (params?.id !== undefined) {
     const recipe = await getRecipeById(params.id);
+
+    if (!recipe) {
+      return {
+        notFound: true,
+      };
+    }
 
     return {
       props: {

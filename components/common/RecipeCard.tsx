@@ -32,7 +32,7 @@ export default function RecipeCard(props: Props) {
         <Text type='h3' className='text-primary-500'>
           {recipeTitle}
         </Text>
-        <figure className='relative w-full h-56 rounded-lg overflow-hidden shadow-sm'>
+        <figure className='relative w-full h-56 rounded-lg overflow-hidden shadow'>
           {/* Image */}
           <Image src={imageURL} layout='fill' alt={recipeTitle} />
         </figure>
@@ -44,9 +44,7 @@ export default function RecipeCard(props: Props) {
           </Label>
         ))}
       </section>
-      <p className='text-sm font-light tracking-wide text-gray-500 mb-6'>
-        Cooking time: {time}
-      </p>
+      <p className='text-sm text-gray-400 mb-6'>Cooking time: {time}</p>
 
       <footer className='flex gap-4'>
         <Button className={userRecipe ? `w-3/4` : ' w-full'}>
@@ -59,7 +57,7 @@ export default function RecipeCard(props: Props) {
         {userRecipe ? (
           <button className='w-1/4 flex items-center justify-center'>
             <Link href={`/app/recipes/edit/${recipeId}`}>
-              <a className='w-full px-6 py-2 flex items-center justify-center rounded hover:bg-gray-200 transition-all'>
+              <a className='w-full px-6 py-2 flex items-center justify-center rounded text-gray-800 hover:bg-gray-200 border border-transparent hover:border-gray-200 hover:shadow focus:outline-none focus:ring focus:ring-primary-200 transition-all'>
                 <Pencil size={20} />
               </a>
             </Link>
