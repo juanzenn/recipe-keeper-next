@@ -10,8 +10,6 @@ interface Props {
 export default function PDF(props: Props) {
   const {
     title,
-    image,
-    slug,
     description,
     tags,
     ingredients,
