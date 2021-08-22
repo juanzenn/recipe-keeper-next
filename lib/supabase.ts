@@ -38,6 +38,25 @@ async function uploadImage(image: File, fileName: string) {
   }
 }
 
+async function updateImage(image: File, fileName: string) {
+  try {
+    const { data, error } = await supabase.storage
+      .from('images')
+      .update(`${fileName}`, image, {
+        upsert: true,
+      });
+
+    if (error !== null) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 async function addRecipe(recipe: Recipe) {
   const recipeToAdd = {
     id: recipe.id,
@@ -142,7 +161,8 @@ async function getDiscoveryRecipes(userId: string | null) {
 
 export interface SingleRecipe {
   title: string;
-  image: string;
+  imageName: string;
+  imageUrl: string;
   slug: string;
   description: string;
   tags: string[];
@@ -168,7 +188,7 @@ async function getRecipeById(recipeId: string | string[] | undefined) {
       cooking-time,
       instructions,
       author:author_id (
-          name, email, username
+          id, name, email, username
         )`
       )
       .eq('id', recipeId);
@@ -184,7 +204,8 @@ async function getRecipeById(recipeId: string | string[] | undefined) {
 
       const recipe = {
         title: data[0].title,
-        image: publicURL,
+        imageName: data[0].image,
+        imageUrl: publicURL,
         slug: data[0].slug,
         description: data[0].description,
         tags: data[0].tags,
@@ -200,6 +221,24 @@ async function getRecipeById(recipeId: string | string[] | undefined) {
   } catch (error) {
     console.error(error);
     return null;
+  }
+}
+
+async function updateRecipeById(recipeId: string, updatedRecipe: Recipe) {
+  try {
+    const { data, error } = await supabase
+      .from('recipes')
+      .update(updatedRecipe)
+      .match({ id: recipeId });
+
+    if (error !== null) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    return error;
   }
 }
 
@@ -236,6 +275,7 @@ export {
   getUserRecipe,
   getDiscoveryRecipes,
   getRecipeById,
-  getRecipeForEdition,
+  updateRecipeById,
   uploadImage,
+  updateImage,
 };

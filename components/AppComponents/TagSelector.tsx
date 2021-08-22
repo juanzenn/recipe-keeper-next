@@ -1,6 +1,4 @@
-import Input from '@components/common/Input';
 import Label from '@components/common/Label';
-import { useTextInput } from '@hooks/formHooks';
 import React, { useEffect, useState } from 'react';
 
 interface Props {
@@ -20,36 +18,6 @@ export default function TagSelector({ selectedTags, setSelectedTags }: Props) {
     'fish',
     'pork',
   ];
-
-  // const [tag, changeTag] = useTextInput('');
-
-  // useEffect(() => {
-  //   const newAvailableTags = tags.reduce((acc: string[], tag) => {
-  //     if (selectedTags.indexOf(tag) < 0) {
-  //       acc.push(tag);
-  //       return acc;
-  //     } else {
-  //       return acc;
-  //     }
-  //   }, []);
-
-  //   setAvailableTags(newAvailableTags);
-  // }, [selectedTags]);
-
-  // useEffect(() => {
-  //   const index = availableTags.indexOf(tag);
-
-  //   if (index < 0) {
-  //     return;
-  //   }
-
-  //   const firstHalf = availableTags.slice(0, index);
-  //   const secondHalf = availableTags.slice(index + 1);
-
-  //   setAvailableTags(firstHalf.concat(secondHalf));
-
-  //   setSelectedTags([...selectedTags, tag]);
-  // }, [tag]);
 
   // Tag clicked
   const [tag, setTag] = useState<null | string>(null);
@@ -100,6 +68,20 @@ export default function TagSelector({ selectedTags, setSelectedTags }: Props) {
     setAvailableTags(newAvailableTags);
     setSelectedTags([...selectedTags, ...selectedTag]);
   }, [tag]);
+
+  useEffect(() => {
+    if (selectedTags) {
+      const newAvailable = availableTags.filter(tag => {
+        if (selectedTags.indexOf(tag) < 0) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      setAvailableTags(newAvailable);
+      return;
+    }
+  }, []);
 
   return (
     <section>

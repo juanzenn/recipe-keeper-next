@@ -7,6 +7,8 @@ import IngredientsBlock, { BlockOfIngredients } from './IngredientsBlock';
 import { TrashCan } from 'akar-icons';
 
 interface Props {
+  initialIngredients?: Block[];
+  edit?: boolean;
   setIngredients: (value: Block[]) => void;
 }
 
@@ -17,8 +19,12 @@ export interface Block {
   block: BlockOfIngredients;
 }
 
-export default function Ingredients({ setIngredients }: Props) {
-  const [blocks, setBlocks] = useState<Block[]>([]);
+export default function Ingredients({
+  setIngredients,
+  edit = false,
+  initialIngredients = [],
+}: Props) {
+  const [blocks, setBlocks] = useState<Block[]>(initialIngredients);
 
   function addBlock() {
     const block: Block = {
@@ -78,7 +84,12 @@ export default function Ingredients({ setIngredients }: Props) {
       <section className='space-y-6 mb-8'>
         {blocks.map(block => (
           <article key={block.id}>
-            <IngredientsBlock blockId={block.id} updateBlock={updateBlock} />
+            <IngredientsBlock
+              initialValue={edit ? block.block : undefined}
+              edit={edit}
+              blockId={block.id}
+              updateBlock={updateBlock}
+            />
             <button
               type='button'
               onClick={() => removeBlock(block.id)}

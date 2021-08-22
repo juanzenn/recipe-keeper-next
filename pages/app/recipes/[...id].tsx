@@ -21,7 +21,7 @@ interface Props {
 export default function Recipe({ recipe }: Props) {
   const {
     title,
-    image,
+    imageUrl,
     slug,
     description,
     tags,
@@ -42,7 +42,7 @@ export default function Recipe({ recipe }: Props) {
         <GoBack />
 
         <figure className='relative w-full h-[50vh] mb-8 rounded-lg overflow-hidden shadow-lg'>
-          <Image layout='fill' src={image} alt={slug} />
+          <Image layout='fill' src={imageUrl} alt={slug} />
         </figure>
 
         <Text type='h2' className='mb-2'>

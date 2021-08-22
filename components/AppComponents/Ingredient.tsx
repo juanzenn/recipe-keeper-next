@@ -6,9 +6,16 @@ import React, { useRef } from 'react';
 interface Props {
   id: string;
   updateIngredient: (id: string, newValue: string) => void;
+  edit?: boolean;
+  initialValue?: string;
 }
 
-export default function Ingredient({ updateIngredient, id }: Props) {
+export default function Ingredient({
+  updateIngredient,
+  id,
+  edit = false,
+  initialValue = '',
+}: Props) {
   const ingredient = useRef<HTMLInputElement>(null);
 
   return (
@@ -17,7 +24,7 @@ export default function Ingredient({ updateIngredient, id }: Props) {
       placeholder='All-purprose flour - 200g...'
       type='text'
       ref={ingredient}
-      value={ingredient.current?.value}
+      value={edit ? initialValue : ingredient.current?.value}
       onChange={() =>
         updateIngredient(
           id,

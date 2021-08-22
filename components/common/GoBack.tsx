@@ -8,7 +8,7 @@ export default function GoBack() {
   return (
     <div
       onClick={() => router.back()}
-      className='w-max p-4 mb-4 flex gap-2 items-center cursor-pointer text-gray-600 hover:text-primary-600 transition-all'>
+      className='w-max p-4 mb-4 flex gap-2 items-center cursor-pointer text-gray-800 hover:text-primary-600 transition-all'>
       <ChevronLeft size={24} />
       <span>Go back</span>
     </div>

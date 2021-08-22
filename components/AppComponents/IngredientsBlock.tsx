@@ -15,16 +15,20 @@ export interface BlockOfIngredients {
 }
 
 interface Props {
+  initialValue?: BlockOfIngredients;
+  edit?: boolean;
   blockId: string;
   updateBlock: (id: string, updatedBlock: BlockOfIngredients) => void;
 }
 
-export default function IngredientsBlock({ blockId, updateBlock }: Props) {
+export default function IngredientsBlock({
+  blockId,
+  updateBlock,
+  edit = false,
+  initialValue = { blockTitle: '', ingredients: [] },
+}: Props) {
   const [blockOfIngredients, setBlockOfIngredients] =
-    useState<BlockOfIngredients>({
-      blockTitle: '',
-      ingredients: [],
-    });
+    useState<BlockOfIngredients>(initialValue);
 
   const blockTitleRef = useRef<HTMLInputElement>(null);
 
@@ -105,7 +109,9 @@ export default function IngredientsBlock({ blockId, updateBlock }: Props) {
         placeholder='Block title'
         className='w-full p-2 mb-4 rounded-sm font-semibold text-lg text-gray-600 placeholder-gray-300 border-b border-gray-300 hover:border-primary-300 focus:border-primary-300 focus:outline-none focus:ring focus:ring-primary-200'
         ref={blockTitleRef}
-        value={blockTitleRef.current?.value}
+        value={
+          edit ? blockOfIngredients.blockTitle : blockTitleRef.current?.value
+        }
         onChange={updateTitle}
       />
 
@@ -113,6 +119,8 @@ export default function IngredientsBlock({ blockId, updateBlock }: Props) {
         return (
           <div key={`item-${ingredient.id}`} className='mb-4'>
             <Ingredient
+              edit={edit}
+              initialValue={ingredient.ingredient}
               id={ingredient.id}
               updateIngredient={updateIngredient}
             />
