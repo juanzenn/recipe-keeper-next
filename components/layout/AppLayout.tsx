@@ -55,7 +55,7 @@ export default function AppLayout({ children, view }: AppLayout) {
             <div className='w-8 h-8 rounded-full bg-red-500'></div>
           </div>
 
-          <section className={`w-3/4 mx-auto pb-12`}>{children}</section>
+          <section className={`w-3/4 mx-auto mb-12`}>{children}</section>
         </section>
       </main>
     );

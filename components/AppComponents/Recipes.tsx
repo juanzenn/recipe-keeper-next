@@ -27,6 +27,7 @@ export default function Recipes({
 
   const [explorerRecipes, setExplorerRecipes] = useState<RecipeData[]>(recipes);
   const [searchedRecipes, setSerchedRecipes] = useState<RecipeData[]>(recipes);
+  const [loading, setLoading] = useState(true);
 
   const searchValue = useRef<HTMLInputElement>(null);
 

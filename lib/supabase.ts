@@ -21,6 +21,20 @@ export interface Recipe {
   instructions: string | null;
 }
 
+export interface SingleRecipe {
+  title: string;
+  imageName: string;
+  imageUrl: string;
+  slug: string;
+  description: string;
+  tags: string[];
+  ingredients: Block[];
+  servings: number;
+  cookingTime: string;
+  instructions: string;
+  author: any;
+}
+
 async function uploadImage(image: File, fileName: string) {
   try {
     const { data, error } = await supabase.storage
@@ -159,20 +173,6 @@ async function getDiscoveryRecipes(userId: string | null) {
   }
 }
 
-export interface SingleRecipe {
-  title: string;
-  imageName: string;
-  imageUrl: string;
-  slug: string;
-  description: string;
-  tags: string[];
-  ingredients: Block[];
-  servings: number;
-  cookingTime: string;
-  instructions: string;
-  author: any;
-}
-
 async function getRecipeById(recipeId: string | string[] | undefined) {
   try {
     const { data, error } = await supabase
@@ -242,23 +242,12 @@ async function updateRecipeById(recipeId: string, updatedRecipe: Recipe) {
   }
 }
 
-async function getRecipeForEdition(recipeId: string | null) {
+async function deleteRecipeById(recipeId: string) {
   try {
     const { data, error } = await supabase
       .from('recipes')
-      .select(
-        `title,
-      slug,
-      description,
-      tags,
-      ingredients,
-      servings,
-      cooking-time,
-      instructions,
-      `
-      )
-      .eq('id', recipeId);
-
+      .delete()
+      .match({ id: recipeId });
     if (error !== null) {
       throw error;
     }
@@ -278,4 +267,5 @@ export {
   updateRecipeById,
   uploadImage,
   updateImage,
+  deleteRecipeById,
 };

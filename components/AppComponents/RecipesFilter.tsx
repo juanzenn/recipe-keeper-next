@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { ChevronDown, ArrowLeft } from 'akar-icons';
 
 interface Props {
@@ -6,6 +6,8 @@ interface Props {
 }
 
 export default function RecipesFilter({ addFilter }: Props) {
+  const menuRef = useRef(null);
+
   const initialMenu = ['Main Ingredient', 'Dish Style'];
   const mainIngredientMenu = [
     'vegan',
@@ -38,19 +40,17 @@ export default function RecipesFilter({ addFilter }: Props) {
   }
 
   return (
-    <div
-      className='inline-block relative'
-      onMouseLeave={() => setActive(false)}>
+    <div className='inline-block relative' ref={menuRef}>
       <div
         onClick={() => setActive(prev => !prev)}
-        className='bg-white px-6 py-2 rounded cursor-pointer flex justify-center items-center gap-2 text-gray-900 hover:bg-primary-100'>
+        className='bg-white px-6 py-2 rounded cursor-pointer flex justify-center items-center gap-2 text-gray-900 hover:bg-gray-50 transition-all'>
         Filter <ChevronDown size={20} />
       </div>
 
       <ul
         className={
           active
-            ? `w-max absolute top-10 space-y-2 text-left text-gray-900 bg-white border border-gray-200 shadow-md rounded-md overflow-hidden z-20`
+            ? `w-max absolute top-12 right-0 space-y-2 text-left text-gray-900 bg-white border border-gray-100 shadow rounded-md overflow-hidden z-20`
             : `hidden`
         }>
         {JSON.stringify(activeMenu) === JSON.stringify(initialMenu) ? null : (
@@ -63,7 +63,7 @@ export default function RecipesFilter({ addFilter }: Props) {
 
         {activeMenu.map((menuItem, index) => (
           <li
-            className='cursor-pointer hover:bg-gray-100 px-8 py-4'
+            className='cursor-pointer hover:bg-gray-50 px-8 py-4'
             key={`${menuItem}-${index}`}
             onClick={() => switchMenus(menuItem)}>
             {menuItem.split('')[0].toUpperCase() + menuItem.slice(1)}

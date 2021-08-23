@@ -10,6 +10,7 @@ import {
   SignOut,
   ChevronLeft,
   TextAlignJustified,
+  Cart,
 } from 'akar-icons';
 import Link from 'next/link';
 
@@ -134,16 +135,16 @@ export default function AppNavigation({ view }: Props) {
             link={'/app/discover'}
           />
 
-          {/* <NavigationItem
+          <NavigationItem
             open={open}
-            text={'Meal Planner'}
-            icon={<Utensils size={24} />}
+            text={'Shopping Lists'}
+            icon={<Cart size={24} />}
             handleClick={() => {
               setOpen(false);
             }}
-            selected={view === 'mealPlanner' ? true : false}
-            link={'/app'}
-          /> */}
+            selected={view === 'shoppingList' ? true : false}
+            link={'/app/shopping-list'}
+          />
         </ul>
       </section>
 

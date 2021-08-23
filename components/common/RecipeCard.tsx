@@ -6,6 +6,7 @@ import Text from './Text';
 
 import Link from 'next/link';
 import Image from 'next/image';
+import RecipeCardOptions from './RecipeCardOptions';
 
 interface Props {
   recipeId: string;
@@ -54,15 +55,7 @@ export default function RecipeCard(props: Props) {
         </Button>
 
         {/* Condition for the edit button if it is a userRecipe*/}
-        {userRecipe ? (
-          <button className='w-1/4 flex items-center justify-center'>
-            <Link href={`/app/recipes/edit/${recipeId}`}>
-              <a className='w-full px-6 py-2 flex items-center justify-center rounded text-gray-800 hover:bg-gray-200 border border-transparent hover:border-gray-200 hover:shadow focus:outline-none focus:ring focus:ring-primary-200 transition-all'>
-                <Pencil size={20} />
-              </a>
-            </Link>
-          </button>
-        ) : null}
+        {userRecipe ? <RecipeCardOptions id={recipeId} /> : null}
       </footer>
     </article>
   );
