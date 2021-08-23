@@ -10,7 +10,6 @@ import GoBack from '@components/common/GoBack';
 import Head from 'next/head';
 import Image from 'next/image';
 import React from 'react';
-import PDF from '@components/PDF';
 
 const marked = require('marked');
 
@@ -133,8 +132,6 @@ export default function Recipe({ recipe }: Props) {
           </section>
         </section>
       </main>
-
-      <PDF recipe={recipe} />
     </>
   );
 }
