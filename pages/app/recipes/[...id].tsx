@@ -86,13 +86,10 @@ export default function Recipe({ recipe }: Props) {
         </section>
 
         <section id='buttons' className='w-full flex gap-6 justify-end mb-4'>
-          <button className='flex gap-2 items-center px-6 py-2 font-medium hover:bg-gray-100 hover:shadow rounded transition-all'>
+          <button className='flex gap-2 items-center px-6 py-2 text-primary-500 border border-primary-300 hover:bg-primary-500 hover:border-primary-500 hover:text-white shadow-sm rounded transition-all'>
             Create shopping list
             <Cart size={20} />
           </button>
-          <Button className='flex gap-2 items-center px-6 py-2'>
-            Print <Download size={20} />
-          </Button>
         </section>
 
         <section className='grid grid-cols-2 gap-6'>
