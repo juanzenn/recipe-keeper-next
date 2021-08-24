@@ -3,6 +3,7 @@ import AppNavigation from '@components/AppComponents/AppNavigation';
 import Text from '@components/common/Text';
 import React, { useEffect } from 'react';
 import { supabase } from '@lib/supabase';
+import HelpButton from './HelpButton';
 
 interface AppLayout {
   children: React.ReactNode;
@@ -55,7 +56,11 @@ export default function AppLayout({ children, view }: AppLayout) {
             <div className='w-8 h-8 rounded-full bg-red-500'></div>
           </div>
 
-          <section className={`w-3/4 mx-auto mb-12`}>{children}</section>
+          <section className={`relative w-3/4 mx-auto mb-12`}>
+            {children}
+
+            <HelpButton />
+          </section>
         </section>
       </main>
     );

@@ -35,6 +35,12 @@ export interface SingleRecipe {
   author: any;
 }
 
+export interface Review {
+  author: string;
+  review: string;
+  positive: boolean | null;
+}
+
 async function uploadImage(image: File, fileName: string) {
   try {
     const { data, error } = await supabase.storage
@@ -259,6 +265,26 @@ async function deleteRecipeById(recipeId: string) {
   }
 }
 
+async function sendReview(review: Review) {
+  try {
+    const { data, error } = await supabase.from('reviews').insert(review);
+
+    if (error !== null) {
+      throw error;
+    }
+
+    if (data) {
+      return {
+        code: 200,
+        message: 'Your review was sended successfully! Thank you.',
+      };
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 export {
   addRecipe,
   getUserRecipe,
@@ -268,4 +294,5 @@ export {
   uploadImage,
   updateImage,
   deleteRecipeById,
+  sendReview,
 };
