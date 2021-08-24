@@ -736,6 +736,9 @@ video {
 .h-56 {
 	height: 14rem;
 }
+.max-h-\[50vh\] {
+	max-height: 50vh;
+}
 .w-screen {
 	width: 100vw;
 }
@@ -1051,6 +1054,10 @@ video {
 .py-4 {
 	padding-top: 1rem;
 	padding-bottom: 1rem;
+}
+.px-2 {
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
 }
 .pt-16 {
 	padding-top: 4rem;
@@ -1431,6 +1438,21 @@ html {
 .hover\:text-gray-600:hover {
 	--tw-text-opacity: 1;
 	color: rgba(75, 85, 99, var(--tw-text-opacity));
+}
+
+.hover\:text-gray-800:hover {
+	--tw-text-opacity: 1;
+	color: rgba(31, 41, 55, var(--tw-text-opacity));
+}
+
+.hover\:text-blue-800:hover {
+	--tw-text-opacity: 1;
+	color: rgba(30, 64, 175, var(--tw-text-opacity));
+}
+
+.hover\:text-blue-500:hover {
+	--tw-text-opacity: 1;
+	color: rgba(59, 130, 246, var(--tw-text-opacity));
 }
 
 .hover\:brightness-105:hover {
