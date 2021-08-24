@@ -99,6 +99,10 @@ export default function Recipes({
     updateRecipes(filters);
   }, [filters]);
 
+  useEffect(() => {
+    setExplorerRecipes(recipes);
+  }, [recipes]);
+
   return (
     <section>
       <nav className='flex gap-4 mb-12'>

@@ -434,7 +434,7 @@ async function getActionsById(id: string, userId: string | undefined | null) {
       try {
         const newEntry = await supabase.from<Actions>('actions').insert({
           userId: userId,
-          recipeId: id,
+          recipeId: id[0],
         });
 
         if (newEntry.error !== null) {
@@ -463,6 +463,51 @@ async function getActionsById(id: string, userId: string | undefined | null) {
   }
 }
 
+async function getBookmarkedRecipes(userId: string | null) {
+  try {
+    const { data, error } = await supabase
+      .from('actions')
+      .select(
+        `recipeId (
+          id,
+          title,
+          slug,
+          tags,
+          cooking-time,
+          image
+      )`
+      )
+      .match({ userId: userId, isBookmarked: true });
+
+    if (error !== null) {
+      throw error;
+    }
+
+    if (data) {
+      const recipes = data.map(recipe => {
+        const { publicURL } = supabase.storage
+          .from('images')
+          .getPublicUrl(recipe.recipeId.image);
+
+        const newRecipe = {
+          id: recipe.recipeId.id,
+          title: recipe.recipeId.title,
+          slug: recipe.recipeId.slug,
+          image: publicURL,
+          tags: recipe.recipeId.tags,
+          'cooking-time': recipe.recipeId['cooking-time'],
+        };
+
+        return newRecipe;
+      });
+      return recipes;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 export {
   addRecipe,
   getUserRecipe,
@@ -476,4 +521,5 @@ export {
   bookmarkRecipe,
   shopRecipe,
   getActionsById,
+  getBookmarkedRecipes,
 };
