@@ -57,7 +57,7 @@ export default function HelpButton() {
         <section
           className={
             active
-              ? 'fixed bottom-20 right-8 w-[30vw] p-4 rounded-md shadow-md'
+              ? 'fixed bottom-20 right-8 w-[30vw] p-4 rounded-md shadow-md bg-white'
               : 'hidden'
           }>
           <strong className='inline-block text-xl mb-2 text-gray-500'>
@@ -79,7 +79,7 @@ export default function HelpButton() {
         <section
           className={
             active
-              ? 'fixed bottom-20 right-8 w-[30vw] p-4 rounded-md shadow-md'
+              ? 'fixed bottom-20 right-8 w-[30vw] p-4 rounded-md shadow-md bg-white'
               : 'hidden'
           }>
           <strong className='inline-block text-xl mb-2 text-green-500'>
@@ -109,7 +109,7 @@ export default function HelpButton() {
       <section
         className={
           active
-            ? 'fixed bottom-20 right-8 w-[30vw] p-4 rounded-md shadow-md'
+            ? 'fixed bottom-20 right-8 w-[30vw] p-4 rounded-md shadow-md bg-white'
             : 'hidden'
         }>
         <strong className='inline-block text-xl mb-2'>Leave a review</strong>

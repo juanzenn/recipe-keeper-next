@@ -285,6 +285,184 @@ async function sendReview(review: Review) {
   }
 }
 
+export interface Actions {
+  id: number;
+  userId: string;
+  recipeId: string;
+  isBookmarked: boolean;
+  hasShoppingList: boolean;
+}
+
+// Function for handling bookmark
+async function bookmarkRecipe(id: string, userId: string | undefined | null) {
+  if (!userId) {
+    throw `Not authenticated.`;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from<Actions>('actions')
+      .select()
+      .match({ userId: userId, recipeId: id });
+
+    if (error !== null) {
+      throw error;
+    }
+
+    // if (data && data.length <= 0) {
+    //   try {
+    //     const newEntry = await supabase.from<Actions>('actions').insert({
+    //       userId: userId,
+    //       recipeId: id,
+    //       isBookmarked: true,
+    //     });
+
+    //     if (newEntry.error !== null) {
+    //       throw newEntry.error;
+    //     }
+
+    //     return newEntry.data;
+    //   } catch (error) {
+    //     console.error(error);
+    //     return null;
+    //   }
+    // }
+
+    if (data) {
+      try {
+        const currentBookmarkValue = data[0].isBookmarked;
+
+        const updated = await supabase
+          .from<Actions>('actions')
+          .update({ isBookmarked: !currentBookmarkValue })
+          .match({ userId: userId, recipeId: id });
+
+        if (updated.error !== null) {
+          throw updated.error;
+        }
+
+        return updated.data;
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+// Function for handling shoppingList
+async function shopRecipe(id: string, userId: string | undefined | null) {
+  if (!userId) {
+    throw `Not authenticated.`;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from<Actions>('actions')
+      .select()
+      .match({ userId: userId, recipeId: id });
+
+    if (error !== null) {
+      throw error;
+    }
+
+    // if (data && data.length <= 0) {
+    //   try {
+    //     const newEntry = await supabase.from<Actions>('actions').insert({
+    //       userId: userId,
+    //       recipeId: id,
+    //       hasShoppingList: true,
+    //     });
+
+    //     if (newEntry.error !== null) {
+    //       throw newEntry.error;
+    //     }
+
+    //     console.log(newEntry.data);
+
+    //     return newEntry.data;
+    //   } catch (error) {
+    //     console.error(error);
+    //     return null;
+    //   }
+    // }
+
+    if (data) {
+      try {
+        const currentShoppingList = data[0].hasShoppingList;
+
+        const updated = await supabase
+          .from<Actions>('actions')
+          .update({ hasShoppingList: !currentShoppingList })
+          .match({ userId: userId, recipeId: id });
+
+        if (updated.error !== null) {
+          throw updated.error;
+        }
+
+        return updated.data;
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+async function getActionsById(id: string, userId: string | undefined | null) {
+  if (!userId) {
+    throw `Not authenticated.`;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from<Actions>('actions')
+      .select()
+      .match({ userId: userId, recipeId: id });
+
+    if (error !== null) {
+      throw error;
+    }
+
+    if (data && data.length <= 0) {
+      try {
+        const newEntry = await supabase.from<Actions>('actions').insert({
+          userId: userId,
+          recipeId: id,
+        });
+
+        if (newEntry.error !== null) {
+          throw newEntry.error;
+        }
+
+        return {
+          isBookmarked: newEntry.data[0].isBookmarked,
+          hasShoppingList: newEntry.data[0].hasShoppingList,
+        };
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    }
+
+    if (data) {
+      return {
+        isBookmarked: data[0].isBookmarked,
+        hasShoppingList: data[0].hasShoppingList,
+      };
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 export {
   addRecipe,
   getUserRecipe,
@@ -295,4 +473,7 @@ export {
   updateImage,
   deleteRecipeById,
   sendReview,
+  bookmarkRecipe,
+  shopRecipe,
+  getActionsById,
 };
