@@ -907,6 +907,9 @@ video {
 .grid-cols-4 {
 	grid-template-columns: repeat(4, minmax(0, 1fr));
 }
+.flex-row {
+	flex-direction: row;
+}
 .flex-col {
 	flex-direction: column;
 }
@@ -915,6 +918,9 @@ video {
 }
 .flex-wrap {
 	flex-wrap: wrap;
+}
+.items-start {
+	align-items: flex-start;
 }
 .items-end {
 	align-items: flex-end;
@@ -1691,6 +1697,10 @@ html {
 
 	.lg\:gap-8 {
 		gap: 2rem;
+	}
+
+	.lg\:gap-6 {
+		gap: 1.5rem;
 	}
 
 	.lg\:space-y-0 > :not([hidden]) ~ :not([hidden]) {

@@ -76,7 +76,7 @@ export default function Recipe({ recipe, recipeId }: Props) {
           {description}
         </Text>
 
-        <section className='grid grid-cols-2 gap-4 bg-white shadow p-6 w-3/4 mx-auto mb-8'>
+        <section className='grid gap-8 lg:grid-cols-2 lg:gap-4 bg-white shadow p-6 w-full lg:w-3/4 mx-auto mb-8'>
           <article>
             <Text type='h3' className='mb-2'>
               Author
@@ -86,7 +86,7 @@ export default function Recipe({ recipe, recipeId }: Props) {
             </Text>
           </article>
           <ul className='space-y-4'>
-            <li className='flex gap-4 items-center'>
+            <li className='flex flex-col lg:flex-row gap-4 items-start'>
               <strong className='text-lg tracking-tight'>Tags</strong>
               <div className='w-full flex gap-4 flex-wrap'>
                 {tags
@@ -109,10 +109,12 @@ export default function Recipe({ recipe, recipeId }: Props) {
           </ul>
         </section>
 
-        <section id='buttons' className='w-full flex gap-4 justify-end mb-4'>
+        <section
+          id='buttons'
+          className='w-full lg:w-full flex flex-col-reverse lg:flex-row gap-4 items-end justify-end mb-4'>
           {bookmarked ? (
             <button
-              className='flex gap-2 items-center px-6 py-2 rounded border border-primary-500 bg-primary-500 text-white hover:bg-primary-600 hover:border-red-600 focus:ring focus:ring-primary-200 transition-all'
+              className='w-max flex gap-2 items-center px-6 py-2 rounded border border-primary-500 bg-primary-500 text-white hover:bg-primary-600 hover:border-red-600 focus:ring focus:ring-primary-200 transition-all'
               onClick={() => {
                 bookmarkRecipe(recipeId[0], user?.sub);
                 setBookmarked(prev => !prev);
@@ -122,7 +124,7 @@ export default function Recipe({ recipe, recipeId }: Props) {
             </button>
           ) : (
             <button
-              className='flex gap-2 items-center px-6 py-2 rounded border border-primary-500 hover:bg-primary-500 text-primary-500 hover:text-white focus:ring focus:ring-primary-200 transition-all'
+              className='w-max flex gap-2 items-center px-6 py-2 rounded border border-primary-500 hover:bg-primary-500 text-primary-500 hover:text-white focus:ring focus:ring-primary-200 transition-all'
               onClick={() => {
                 bookmarkRecipe(recipeId[0], user?.sub);
                 setBookmarked(prev => !prev);
@@ -133,7 +135,7 @@ export default function Recipe({ recipe, recipeId }: Props) {
           )}
           {hasShoppingList ? (
             <Link href={`/app/shopping-list/${recipeId}`}>
-              <a className='flex gap-2 items-center px-6 py-2 text-white border border-gray-800 bg-gray-800 hover:bg-gray-700  hover:border-gray-700 shadow-sm rounded transition-all'>
+              <a className='w-max flex gap-2 items-center px-6 py-2 text-white border border-gray-800 bg-gray-800 hover:bg-gray-700  hover:border-gray-700 shadow-sm rounded transition-all'>
                 See shopping list
                 <LinkOut size={20} />
               </a>
@@ -144,16 +146,16 @@ export default function Recipe({ recipe, recipeId }: Props) {
                 shopRecipe(recipeId[0], user?.sub);
                 setHasShoppingList(true);
               }}
-              className='flex gap-2 items-center px-6 py-2 text-gray-800 border border-gray-800 hover:bg-gray-800 hover:border-gray-800 hover:text-white shadow-sm rounded transition-all'>
+              className='w-max flex gap-2 items-center px-6 py-2 text-gray-800 border border-gray-800 hover:bg-gray-800 hover:border-gray-800 hover:text-white shadow-sm rounded transition-all'>
               Create shopping list
               <Cart size={20} />
             </button>
           )}
         </section>
 
-        <section className='grid grid-cols-2 gap-6'>
+        <section className='grid lg:grid-cols-2 gap-4 lg:gap-6'>
           <section className='bg-white p-4'>
-            <Text type='h3' className='text-primary-600 mb-6'>
+            <Text type='h2' className='text-primary-600 mb-6'>
               Ingredients
             </Text>
             {ingredients
@@ -174,7 +176,7 @@ export default function Recipe({ recipe, recipeId }: Props) {
               : null}
           </section>
           <section className='bg-white p-4'>
-            <Text type='h3' className='text-primary-600 mb-6'>
+            <Text type='h2' className='text-primary-600 mb-6'>
               Instructions
             </Text>
 
