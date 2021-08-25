@@ -130,7 +130,9 @@ export default function Edit({ recipe, recipeId }: Props) {
         subtitle='You are editing right now your recipe. Be careful!'
       />
 
-      <form className='grid grid-cols-2 gap-8' onSubmit={handleSubmit}>
+      <form
+        className='glg:grid lg:grid-cols-2 lg:gap-8 space-y-8 lg:space-y-0'
+        onSubmit={handleSubmit}>
         {/* Recipe name */}
         <div className='w-full space-y-2'>
           <Input

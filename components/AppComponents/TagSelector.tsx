@@ -102,9 +102,9 @@ export default function TagSelector({ selectedTags, setSelectedTags }: Props) {
         </select>
       </section>
 
-      <section className='grid grid-cols-4 gap-4 mt-4 justify-items-center'>
+      <section className='grid grid-cols-3 lg:grid-cols-4 gap-4 mt-4 justify-items-center'>
         {selectedTags.length === 0 ? (
-          <p className='text-sm text-gray-600 tracking-tight'>
+          <p className='text-sm text-gray-600 tracking-tight col-span-2 justify-self-start'>
             No selected tags.
           </p>
         ) : (

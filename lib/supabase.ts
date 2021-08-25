@@ -41,6 +41,19 @@ export interface Review {
   positive: boolean | null;
 }
 
+export interface ShoppingList {
+  id: string;
+  title: string;
+}
+
+export interface Actions {
+  id: number;
+  userId: string;
+  recipeId: string;
+  isBookmarked: boolean;
+  hasShoppingList: boolean;
+}
+
 async function uploadImage(image: File, fileName: string) {
   try {
     const { data, error } = await supabase.storage
@@ -285,14 +298,6 @@ async function sendReview(review: Review) {
   }
 }
 
-export interface Actions {
-  id: number;
-  userId: string;
-  recipeId: string;
-  isBookmarked: boolean;
-  hasShoppingList: boolean;
-}
-
 async function bookmarkRecipe(id: string, userId: string | undefined | null) {
   if (!userId) {
     throw `Not authenticated.`;
@@ -483,11 +488,6 @@ async function getBookmarkedRecipes(userId: string | null) {
     console.error(error);
     return null;
   }
-}
-
-export interface ShoppingList {
-  id: string;
-  title: string;
 }
 
 async function getShoppingLists(userId: string | null) {

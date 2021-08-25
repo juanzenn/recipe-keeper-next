@@ -50,7 +50,7 @@ export default function RecipesFilter({ addFilter }: Props) {
       <ul
         className={
           active
-            ? `w-max absolute top-12 right-0 space-y-2 text-left text-gray-900 bg-white border border-gray-100 shadow rounded-md overflow-hidden z-20`
+            ? `w-max absolute top-12 right-0 space-y-2 text-left text-gray-900 bg-white border border-gray-100 shadow rounded-md overflow-hidden z-20  max-h-[50vh] overflow-y-scroll`
             : `hidden`
         }>
         {JSON.stringify(activeMenu) === JSON.stringify(initialMenu) ? null : (

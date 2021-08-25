@@ -77,8 +77,11 @@ export default function Add() {
         subtitle="Fill the form with your recipe's information"
       />
 
-      <form className='grid grid-cols-2 gap-8' onSubmit={handleSubmit}>
+      <form
+        className='lg:grid lg:grid-cols-2 lg:gap-8 space-y-8 lg:space-y-0'
+        onSubmit={handleSubmit}>
         {/* Recipe name */}
+
         <div className='w-full space-y-2'>
           <Input
             value={recipeName}

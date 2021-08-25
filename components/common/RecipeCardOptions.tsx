@@ -23,13 +23,13 @@ export default function RecipeCardOptions({ id }: Props) {
   return (
     <>
       <div
-        className='cursor-pointer relative w-1/4 h-max flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-md'
+        className='cursor-pointer relative w-1/4 h-max flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-md transition-all'
         onClick={() => setActive(prev => !prev)}>
         <Gear size={20} className='text-gray-900' />
         <section
           className={
             active
-              ? 'absolute top-12 right-0 border border-gray-100 shadow rounded-md'
+              ? 'absolute top-12 right-0 bg-white border border-gray-100 shadow rounded-md z-40'
               : 'hidden'
           }>
           <Link href={`/app/recipes/edit/${id}`}>

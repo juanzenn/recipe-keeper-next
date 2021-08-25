@@ -17,7 +17,7 @@ export default function Warning(props: Props) {
           ? `fixed left-0 top-0 w-screen h-screen flex justify-center items-center bg-black/50 backdrop-blur-sm z-50`
           : 'hidden'
       }>
-      <div className='w-1/2 bg-white rounded-md p-4'>
+      <div className='w-10/12 lg:w-1/2 bg-white rounded-md p-4'>
         <strong className='text-red-500 font-bold tracking-tight text-4xl mb-2 inline-block'>
           Warning
         </strong>

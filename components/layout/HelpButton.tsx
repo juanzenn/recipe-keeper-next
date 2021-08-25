@@ -51,13 +51,13 @@ export default function HelpButton() {
       <>
         <div
           onClick={handleBubble}
-          className='fixed bottom-4 right-8 p-4 rounded-full bg-primary-600 shadow-md cursor-pointer hover:brightness-105 transition-all'>
+          className='fixed bottom-4 right-4 lg:right-8 p-3 lg:p-4 rounded-full bg-primary-600 shadow-md cursor-pointer hover:brightness-105 transition-all'>
           <Envelope size={24} className='text-gray-50' />
         </div>
         <section
           className={
             active
-              ? 'fixed bottom-20 right-8 w-[30vw] p-4 rounded-md shadow-md bg-white'
+              ? 'fixed bottom-20 right-8 w-screen lg:w-[30vw] p-4 rounded-md shadow-md bg-white'
               : 'hidden'
           }>
           <strong className='inline-block text-xl mb-2 text-gray-500'>
@@ -73,13 +73,13 @@ export default function HelpButton() {
       <>
         <div
           onClick={handleBubble}
-          className='fixed bottom-4 right-8 p-4 rounded-full bg-primary-600 shadow-md cursor-pointer hover:brightness-105 transition-all'>
+          className='fixed bottom-4 right-4 lg:right-8 p-3 lg:p-4 rounded-full bg-primary-600 shadow-md cursor-pointer hover:brightness-105 transition-all'>
           <Envelope size={24} className='text-gray-50' />
         </div>
         <section
           className={
             active
-              ? 'fixed bottom-20 right-8 w-[30vw] p-4 rounded-md shadow-md bg-white'
+              ? 'fixed bottom-20 right-8 w-10/12 lg:w-[30vw] p-4 rounded-md shadow-md bg-white'
               : 'hidden'
           }>
           <strong className='inline-block text-xl mb-2 text-green-500'>
@@ -103,13 +103,13 @@ export default function HelpButton() {
     <>
       <div
         onClick={handleBubble}
-        className='fixed bottom-4 right-8 p-4 rounded-full bg-primary-600 shadow-md cursor-pointer hover:brightness-105 transition-all'>
+        className='fixed bottom-4 right-4 lg:right-8 p-3 lg:p-4 rounded-full bg-primary-600 shadow-md cursor-pointer hover:brightness-105 transition-all'>
         <Envelope size={24} className='text-gray-50' />
       </div>
       <section
         className={
           active
-            ? 'fixed bottom-20 right-8 w-[30vw] p-4 rounded-md shadow-md bg-white'
+            ? 'fixed bottom-20 right-8 w-10/12 lg:w-[30vw] p-4 rounded-md shadow-md bg-white'
             : 'hidden'
         }>
         <strong className='inline-block text-xl mb-2'>Leave a review</strong>

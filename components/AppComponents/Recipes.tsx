@@ -105,9 +105,9 @@ export default function Recipes({
 
   return (
     <section>
-      <nav className='flex gap-4 mb-12'>
+      <nav className='flex flex-col lg:flex-row gap-4 mb-12'>
         {addRecipe ? (
-          <NavigationContainer className='w-full'>
+          <NavigationContainer className='w-full py-2'>
             <Text type='h3' className='w-full'>
               Add a recipe
             </Text>
@@ -121,7 +121,7 @@ export default function Recipes({
             </ButtonSecondary>
           </NavigationContainer>
         ) : null}
-        <NavigationContainer className='h-16 w-full'>
+        <NavigationContainer className='h-16 w-full py-2'>
           <div className='w-full flex items-center border-2 border-white rounded-md pl-2 pr-4 py-1'>
             <input
               className='w-full text-base bg-transparent tracking-wide text-white placeholder-gray-50 focus:outline-none focus:border-none'

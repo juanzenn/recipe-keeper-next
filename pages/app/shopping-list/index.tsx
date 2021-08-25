@@ -73,7 +73,7 @@ export default function ShoppingList() {
             </ButtonOutlined>
           </section>
         ) : (
-          <section className='grid grid-cols-3 gap-8'>
+          <section className='grid lg:grid-cols-3 gap-8'>
             {shoppingList.map(item => (
               <div
                 key={item.id}

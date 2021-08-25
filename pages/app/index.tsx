@@ -65,7 +65,7 @@ export default function Index() {
             <Text type='h2'>Quick Actions</Text>
           </header>
 
-          <section className='grid grid-cols-3 gap-4'>
+          <section className='grid lg:grid-cols-3 gap-4'>
             <article className='w-full'>
               <Text type='h3' className='mb-1'>
                 Add recipe
@@ -110,14 +110,14 @@ export default function Index() {
           </section>
         </section>
 
-        <section className='grid grid-cols-2 gap-8'>
+        <section className='flex flex-col-reverse lg:grid lg:grid-cols-2 gap-8'>
           <section className='p-4'>
             <Text type='h3'> Tutorials</Text>
 
             <p className='text-gray-400'>{`There's nothing here yet...`}</p>
           </section>
 
-          <section className='p-4 max-h-[50vh] overflow-y-scroll'>
+          <section className='p-4 max-h-screen lg:max-h-[50vh] overflow-y-scroll'>
             <Text type='h3' className='mb-6'>
               Shopping Lists
             </Text>

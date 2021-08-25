@@ -19,7 +19,7 @@ export default function RecipesContainer({
   userRecipe = false,
 }: Props) {
   return (
-    <section className='grid grid-cols-3 gap-x-4 gap-y-12'>
+    <section className='grid lg:grid-cols-3 gap-x-4 gap-y-12'>
       {recipes.map(recipe => (
         <RecipeCard
           key={recipe.id}

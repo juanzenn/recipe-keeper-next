@@ -50,13 +50,8 @@ export default function AppLayout({ children, view }: AppLayout) {
       <main className='flex'>
         <AppNavigation view={view} />
 
-        <section className={`w-full h-screen overflow-y-scroll`}>
-          <div className='w-full px-6 py-4 flex justify-end items-center gap-4'>
-            <Text type='paragraph'>Welcome back, {user.name}!</Text>
-            <div className='w-8 h-8 rounded-full bg-red-500'></div>
-          </div>
-
-          <section className={`relative w-3/4 mx-auto mb-12`}>
+        <section className={`w-full h-screen overflow-y-scroll py-16`}>
+          <section className={`relative w-11/12 lg:w-3/4 mx-auto mb-12`}>
             {children}
 
             <HelpButton />
