@@ -62,7 +62,7 @@ export default function ShoppingList() {
 
       <main>
         {shoppingList.length <= 0 ? (
-          <>
+          <section className='w-full text-center'>
             <p className='text-gray-600 mb-2'>{`You don't have any shopping list. Explore more recipes`}</p>
             <ButtonOutlined className='w-max'>
               <Link href='/app/discover'>
@@ -71,7 +71,7 @@ export default function ShoppingList() {
                 </a>
               </Link>
             </ButtonOutlined>
-          </>
+          </section>
         ) : (
           <section className='grid grid-cols-3 gap-8'>
             {shoppingList.map(item => (

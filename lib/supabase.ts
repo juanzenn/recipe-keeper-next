@@ -523,6 +523,27 @@ async function getShoppingLists(userId: string | null) {
   }
 }
 
+async function getIngredients(recipeId: string) {
+  try {
+    const { data, error } = await supabase
+      .from('recipes')
+      .select('title, description,ingredients')
+      .eq('id', recipeId);
+
+    if (error !== null) {
+      throw error;
+    }
+
+    if (data) {
+      console.log(data);
+      return data;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 export {
   addRecipe,
   getUserRecipe,
@@ -538,4 +559,5 @@ export {
   getActionsById,
   getBookmarkedRecipes,
   getShoppingLists,
+  getIngredients,
 };
