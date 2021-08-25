@@ -6,7 +6,7 @@ interface Props {
 
 export default function Card({ children }: Props) {
   return (
-    <article className='h-[max-content] p-4 rounded-md shadow-lg'>
+    <article className='h-[max-content] p-5 rounded-md shadow-sm'>
       {children}
     </article>
   );

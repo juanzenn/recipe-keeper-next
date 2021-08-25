@@ -31,7 +31,7 @@ export default function Text({ type, children, className }: Props) {
       );
     case 'paragraph':
       return (
-        <p className={`text-base text-gray-800 ${className}`}>{children}</p>
+        <p className={`text-base text-gray-600 ${className}`}>{children}</p>
       );
   }
 }

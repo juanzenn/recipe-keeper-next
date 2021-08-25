@@ -10,12 +10,10 @@ interface Review {
 function Review({ text, author }: Review) {
   return (
     <Card>
-      <Text type='paragraph' className='text mb-4'>
-        {text}
+      <Text type='paragraph' className='text mb-6'>
+        {`"${text}"`}
       </Text>
-      <p className='text-sm font-bold tracking-wider text-primary-500 text-right'>
-        {author}
-      </p>
+      <p className='text-gray-400 text-right'>{author}</p>
     </Card>
   );
 }
@@ -52,7 +50,7 @@ export default function ReviewSection() {
         </Text>
         <section
           id='reviews'
-          className='grid lg:grid-cols-2 gap-6 items-center'>
+          className='grid lg:grid-cols-2 gap-8 items-center'>
           {items.map((item, index) => (
             <Review
               key={`review-${index}`}

@@ -14,7 +14,7 @@ function NavigationLink({ link, label }: NavigationLink) {
   return (
     <li>
       <Link href={link}>
-        <a className='inline-block w-full hover:bg-primary-100 px-4 py-2 tracking-wide lg:hover:bg-transparent lg:hover:text-primary-600'>
+        <a className='inline-block w-full text-lg hover:bg-primary-100 px-4 py-2 lg:hover:bg-transparent lg:hover:text-primary-600'>
           {label}
         </a>
       </Link>
