@@ -8,7 +8,7 @@ import {
   bookmarkRecipe,
   shopRecipe,
 } from '@lib/supabase';
-import { Cart, Heart } from 'akar-icons';
+import { Cart, Heart, LinkOut } from 'akar-icons';
 import { GetServerSideProps } from 'next';
 import GoBack from '@components/common/GoBack';
 
@@ -16,6 +16,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import React, { useEffect, useState, useCallback } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
+import Link from 'next/link';
 
 const marked = require('marked');
 
@@ -130,14 +131,24 @@ export default function Recipe({ recipe, recipeId }: Props) {
               <Heart size={20} />
             </button>
           )}
-          <button
-            onClick={() => {
-              shopRecipe(recipeId[0], user?.sub);
-            }}
-            className='flex gap-2 items-center px-6 py-2 text-gray-800 border border-gray-800 hover:bg-gray-800 hover:border-gray-800 hover:text-white shadow-sm rounded transition-all'>
-            Create shopping list
-            <Cart size={20} />
-          </button>
+          {hasShoppingList ? (
+            <Link href={`/app/shopping-list/${recipeId}`}>
+              <a className='flex gap-2 items-center px-6 py-2 text-white border border-gray-800 bg-gray-800 hover:bg-gray-700  hover:border-gray-700 shadow-sm rounded transition-all'>
+                See shopping list
+                <LinkOut size={20} />
+              </a>
+            </Link>
+          ) : (
+            <button
+              onClick={() => {
+                shopRecipe(recipeId[0], user?.sub);
+                setHasShoppingList(true);
+              }}
+              className='flex gap-2 items-center px-6 py-2 text-gray-800 border border-gray-800 hover:bg-gray-800 hover:border-gray-800 hover:text-white shadow-sm rounded transition-all'>
+              Create shopping list
+              <Cart size={20} />
+            </button>
+          )}
         </section>
 
         <section className='grid grid-cols-2 gap-6'>

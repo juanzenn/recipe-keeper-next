@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Head from 'next/head';
 import Text from '@components/common/Text';
@@ -8,8 +8,46 @@ import { Button, ButtonOutlined } from '@components/common/Button';
 import AppLayout from '@components/layout/AppLayout';
 import Link from 'next/link';
 import { EyeOpen, TrashCan } from 'akar-icons';
+import { useUser } from '@auth0/nextjs-auth0';
+import { getShoppingLists, shopRecipe, ShoppingList } from '@lib/supabase';
 
 export default function Index() {
+  const { user } = useUser();
+  const [shoppingList, setShoppingList] = useState<ShoppingList[]>([]);
+
+  useEffect(() => {
+    async function fetch() {
+      if (user) {
+        const items = await getShoppingLists(
+          user.sub ? user.sub : localStorage.getItem('user-id')
+        );
+
+        if (items) {
+          console.log(items);
+          setShoppingList(items);
+        }
+      }
+    }
+
+    fetch();
+  }, [user]);
+
+  async function handleDetele(id: string, recipeId: string | null | undefined) {
+    if (id) {
+      const item = await shopRecipe(id, recipeId);
+
+      if (item) {
+        const newList = shoppingList.filter(list => {
+          if (item[0].recipeId === list.id) {
+            return false;
+          }
+          return true;
+        });
+        setShoppingList(newList);
+      }
+    }
+  }
+
   return (
     <>
       <Head>
@@ -85,29 +123,39 @@ export default function Index() {
             </Text>
 
             <div className='w-full flex flex-col items-center justify-center'>
-              <div className='w-full flex justify-between'>
-                <p className='text-lg font-medium tracking-tight'>Recipe 1</p>
-                <section className='flex gap-2'>
-                  <Link href='/app/recipes'>
-                    <a className='w-full px-6 py-2 flex gap-2 items-center font-medium hover:text-blue-500 transition-all'>
-                      <EyeOpen size={20} />
-                      View
-                    </a>
-                  </Link>
-                  <button className='p-2 text-gray-600 hover:text-primary-600 transition-all'>
-                    <TrashCan size={20} />
-                  </button>
-                </section>
-              </div>
-
-              {/* <p className='text-gray-600 mb-2'>{`You don't have any shopping list. Explore more recipes`}</p>
-              <ButtonOutlined className='w-max'>
-                <Link href='/app/discover'>
-                  <a className='w-max px-6 py-2 inline-block'>
-                    Discover new recipes
-                  </a>
-                </Link>
-              </ButtonOutlined> */}
+              {shoppingList.length <= 0 ? (
+                <>
+                  <p className='text-gray-600 mb-2'>{`You don't have any shopping list. Explore more recipes`}</p>
+                  <ButtonOutlined className='w-max'>
+                    <Link href='/app/discover'>
+                      <a className='w-max px-6 py-2 inline-block'>
+                        Discover new recipes
+                      </a>
+                    </Link>
+                  </ButtonOutlined>
+                </>
+              ) : (
+                shoppingList.map(item => (
+                  <div key={item.id} className='w-full flex justify-between'>
+                    <p className='text-lg font-medium tracking-tight'>
+                      {item.title}
+                    </p>
+                    <section className='flex gap-2'>
+                      <Link href={`/app/shopping-list/${item.id}`}>
+                        <a className='w-full px-6 py-2 flex gap-2 items-center font-medium hover:text-blue-500 transition-all'>
+                          <EyeOpen size={20} />
+                          View
+                        </a>
+                      </Link>
+                      <button
+                        onClick={() => handleDetele(item.id, user?.sub)}
+                        className='p-2 text-gray-600 hover:text-primary-600 transition-all'>
+                        <TrashCan size={20} />
+                      </button>
+                    </section>
+                  </div>
+                ))
+              )}
             </div>
           </section>
         </section>

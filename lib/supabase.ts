@@ -293,7 +293,6 @@ export interface Actions {
   hasShoppingList: boolean;
 }
 
-// Function for handling bookmark
 async function bookmarkRecipe(id: string, userId: string | undefined | null) {
   if (!userId) {
     throw `Not authenticated.`;
@@ -353,7 +352,6 @@ async function bookmarkRecipe(id: string, userId: string | undefined | null) {
   }
 }
 
-// Function for handling shoppingList
 async function shopRecipe(id: string, userId: string | undefined | null) {
   if (!userId) {
     throw `Not authenticated.`;
@@ -368,27 +366,6 @@ async function shopRecipe(id: string, userId: string | undefined | null) {
     if (error !== null) {
       throw error;
     }
-
-    // if (data && data.length <= 0) {
-    //   try {
-    //     const newEntry = await supabase.from<Actions>('actions').insert({
-    //       userId: userId,
-    //       recipeId: id,
-    //       hasShoppingList: true,
-    //     });
-
-    //     if (newEntry.error !== null) {
-    //       throw newEntry.error;
-    //     }
-
-    //     console.log(newEntry.data);
-
-    //     return newEntry.data;
-    //   } catch (error) {
-    //     console.error(error);
-    //     return null;
-    //   }
-    // }
 
     if (data) {
       try {
@@ -508,6 +485,44 @@ async function getBookmarkedRecipes(userId: string | null) {
   }
 }
 
+export interface ShoppingList {
+  id: string;
+  title: string;
+}
+
+async function getShoppingLists(userId: string | null) {
+  try {
+    const { data, error } = await supabase
+      .from('actions')
+      .select(
+        `recipeId (
+          id,
+          title          
+      )`
+      )
+      .match({ userId: userId, hasShoppingList: true });
+
+    if (error !== null) {
+      throw error;
+    }
+
+    if (data) {
+      const recipes = data.map(recipe => {
+        const newRecipe = {
+          id: recipe.recipeId.id,
+          title: recipe.recipeId.title,
+        };
+
+        return newRecipe;
+      });
+      return recipes;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 export {
   addRecipe,
   getUserRecipe,
@@ -522,4 +537,5 @@ export {
   shopRecipe,
   getActionsById,
   getBookmarkedRecipes,
+  getShoppingLists,
 };
