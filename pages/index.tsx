@@ -9,8 +9,13 @@ import Link from 'next/link';
 import MainNavigation from '@components/Index/MainNavigation';
 import FeaturesSection from '@components/Index/FeaturesSection';
 import ReviewSection from '@components/Index/ReviewSection';
+import { getReviews, Review } from '@lib/supabase';
 
-export default function Index() {
+interface Props {
+  items: Review[];
+}
+
+export default function Index({ items }: Props) {
   const { error, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;
@@ -47,7 +52,7 @@ export default function Index() {
 
         <FeaturesSection />
 
-        <ReviewSection />
+        <ReviewSection items={items} />
 
         <section
           id='footer-cta'
@@ -75,4 +80,21 @@ export default function Index() {
       </main>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const res = await getReviews();
+  const items = res?.slice(0, 4);
+
+  if (items) {
+    return {
+      props: {
+        items,
+      },
+    };
+  }
+
+  return {
+    notFound: true,
+  };
 }

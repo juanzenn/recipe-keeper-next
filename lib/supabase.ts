@@ -39,7 +39,7 @@ export interface SingleRecipe {
 export interface Review {
   author: string;
   review: string;
-  positive: boolean | null;
+  positive?: boolean | null;
 }
 
 export interface ShoppingList {
@@ -53,6 +53,26 @@ export interface Actions {
   recipeId: string;
   isBookmarked: boolean;
   hasShoppingList: boolean;
+}
+
+async function getReviews() {
+  try {
+    const { data, error } = await supabase
+      .from('reviews')
+      .select('author, review')
+      .eq('positive', true);
+
+    if (error !== null) {
+      throw error;
+    }
+
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
 
 async function uploadImage(image: File, fileName: string) {
@@ -554,4 +574,5 @@ export {
   getBookmarkedRecipes,
   getShoppingLists,
   getIngredients,
+  getReviews,
 };

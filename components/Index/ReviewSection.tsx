@@ -1,43 +1,24 @@
 import Text from '@components/common/Text';
 import Card from '@components/common/Card';
 import React from 'react';
+import { Review as ReviewInterface } from '@lib/supabase';
 
-interface Review {
-  text: string;
-  author: string;
+interface Props {
+  items: ReviewInterface[];
 }
 
-function Review({ text, author }: Review) {
+function Review({ author, review }: ReviewInterface) {
   return (
     <Card>
       <Text type='paragraph' className='text mb-6'>
-        {`"${text}"`}
+        {`"${review}"`}
       </Text>
       <p className='text-gray-400 text-right'>{author}</p>
     </Card>
   );
 }
 
-export default function ReviewSection() {
-  const items: Review[] = [
-    {
-      text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut, perferendis tenetur! Sapiente, fugit harum, non molestias commodi eveniet optio quas atque, itaque nisi voluptates recusandae.',
-      author: 'Test Author',
-    },
-    {
-      text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut, perferendis tenetur! Sapiente, fugit harum, non molestias commodi eveniet optio quas atque, itaque nisi voluptates recusandae.',
-      author: 'Test Author',
-    },
-    {
-      text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut, perferendis tenetur! Sapiente, fugit harum, non molestias commodi eveniet optio quas atque, itaque nisi voluptates recusandae.',
-      author: 'Test Author',
-    },
-    {
-      text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut, perferendis tenetur! Sapiente, fugit harum, non molestias commodi eveniet optio quas atque, itaque nisi voluptates recusandae.',
-      author: 'Test Author',
-    },
-  ];
-
+export default function ReviewSection({ items }: Props) {
   return (
     <section id='users' className='py-12 lg:flex pt-16 lg:pt-24'>
       <figure className='users--image mb-6 lg:mb-0'></figure>
@@ -54,7 +35,7 @@ export default function ReviewSection() {
           {items.map((item, index) => (
             <Review
               key={`review-${index}`}
-              text={item.text}
+              review={item.review}
               author={item.author}
             />
           ))}
