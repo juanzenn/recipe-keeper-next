@@ -27,16 +27,14 @@ export default function AppLayout({ children, view }: AppLayout) {
 
       if (data !== null && data.length <= 0) {
         try {
-          const newUser = await supabase
-            .from('users')
-            .insert([
-              {
-                id: user.sub,
-                name: user.name,
-                email: user.email,
-                username: user.nickname,
-              },
-            ]);
+          const newUser = await supabase.from('users').insert([
+            {
+              id: user.sub,
+              name: user.name,
+              email: user.email,
+              username: user.nickname,
+            },
+          ]);
 
           if (newUser.error !== null) {
             throw newUser.error;
@@ -60,6 +58,7 @@ export default function AppLayout({ children, view }: AppLayout) {
   useEffect(() => {
     if (window.localStorage.getItem('user-id') && user !== undefined) {
       checkUserInDb(user);
+      window.localStorage.setItem('user-id', String(user.sub));
       return;
     } else if (user !== undefined) {
       checkUserInDb(user);

@@ -64,10 +64,6 @@ export default function Recipe({ recipe, recipeId }: Props) {
       <main className='relative'>
         <GoBack />
 
-        <figure className='relative w-full h-[50vh] mb-8 rounded-lg overflow-hidden shadow-lg'>
-          <Image layout='fill' src={imageUrl} alt={slug} />
-        </figure>
-
         <Text type='h2' className='mb-2'>
           {title}
         </Text>
@@ -76,12 +72,16 @@ export default function Recipe({ recipe, recipeId }: Props) {
           {description}
         </Text>
 
+        <figure className='relative w-full h-[100vw] lg:h-[70vh] mb-8 rounded-lg overflow-hidden shadow-lg'>
+          <Image layout='fill' src={imageUrl} alt={slug} />
+        </figure>
+
         <section className='grid gap-8 lg:grid-cols-2 lg:gap-4 bg-white shadow p-6 w-full lg:w-3/4 mx-auto mb-8'>
           <article>
             <Text type='h3' className='mb-2'>
               Author
             </Text>
-            <Text type='paragraph' className='text-primary-500'>
+            <Text type='paragraph' className='font-medium'>
               {author.name}
             </Text>
           </article>
@@ -182,7 +182,7 @@ export default function Recipe({ recipe, recipeId }: Props) {
 
             <Text type='paragraph'>
               <span
-                className='space-y-4 leading-relaxed'
+                className='prose'
                 dangerouslySetInnerHTML={{
                   __html: marked(instructions),
                 }}></span>

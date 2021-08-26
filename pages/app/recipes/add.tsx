@@ -48,8 +48,10 @@ export default function Add() {
     const pictureData = await uploadImage(picture, imageName);
     const recipeData = await addRecipe(recipe);
 
-    console.log(pictureData);
-    console.log(recipeData);
+    if (pictureData && recipeData) {
+      alert('Your recipe was added successfully.');
+      window.location.href = `/app/recipes`;
+    }
   }
 
   function handleImageUpload(event: any) {

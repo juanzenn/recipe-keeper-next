@@ -64,23 +64,16 @@ export default function Edit({ recipe, recipeId }: Props) {
       instructions: instructions,
     };
 
-    // console.log(editedRecipe);
     const update = await updateRecipeById(id, editedRecipe);
 
     if (picture) {
       const updatedImage = await updateImage(picture, imageName);
-      console.log(updatedImage);
     }
 
     if (update) {
-      console.log(update);
+      alert('Your recipe was edited successfully.');
+      window.location.href = `/app/recipes`;
     }
-
-    // const pictureData = await uploadImage(picture, imageName);
-    // const recipeData = await addRecipe(recipe);
-
-    // console.log(pictureData);
-    // console.log(recipeData);
   }
 
   function handleImageUpload(event: any) {
@@ -131,7 +124,7 @@ export default function Edit({ recipe, recipeId }: Props) {
       />
 
       <form
-        className='glg:grid lg:grid-cols-2 lg:gap-8 space-y-8 lg:space-y-0'
+        className='lg:grid lg:grid-cols-2 lg:gap-8 space-y-8 lg:space-y-0'
         onSubmit={handleSubmit}>
         {/* Recipe name */}
         <div className='w-full space-y-2'>
@@ -260,7 +253,7 @@ export default function Edit({ recipe, recipeId }: Props) {
           <Button
             type='submit'
             className='w-max p-4 bg-primary-500 text-white col-span-2'>
-            Create new recipe
+            Update recipe
           </Button>
         </section>
       </form>
