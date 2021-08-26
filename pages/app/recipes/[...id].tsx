@@ -82,7 +82,7 @@ export default function Recipe({ recipe, recipeId }: Props) {
               Author
             </Text>
             <Text type='paragraph' className='font-medium'>
-              {author.name}
+              {author.username}
             </Text>
           </article>
           <ul className='space-y-4'>

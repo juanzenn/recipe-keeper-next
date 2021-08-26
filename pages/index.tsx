@@ -31,7 +31,7 @@ export default function Index({ items }: Props) {
 
         <header
           id='header'
-          className='container mx-auto p-6 text-center pt-16 lg:pt-24'>
+          className='container mx-auto p-6 text-center pt-36 lg:pt-24'>
           <Text type='h1' className='w-full md:w-10/12 mb-6 mx-auto'>
             Save your time looking for recipes and
             <span className='text-primary-500'> cook more</span>

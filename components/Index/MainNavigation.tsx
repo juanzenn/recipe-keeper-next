@@ -9,13 +9,16 @@ import Image from 'next/image';
 interface NavigationLink {
   link: string;
   label: string;
+  onClick?: () => void;
 }
 
-function NavigationLink({ link, label }: NavigationLink) {
+function NavigationLink({ link, label, onClick }: NavigationLink) {
   return (
     <li>
       <Link href={link}>
-        <a className='inline-block w-full text-sm font-medium tracking-wide uppercase hover:bg-primary-100 px-4 py-2 lg:hover:bg-transparent lg:hover:text-primary-600'>
+        <a
+          onClick={onClick}
+          className='inline-block w-full text-sm font-medium tracking-wide uppercase hover:bg-primary-100 px-4 py-2 lg:hover:bg-transparent lg:hover:text-primary-600'>
           {label}
         </a>
       </Link>
@@ -50,6 +53,13 @@ export default function MainNavigation() {
     }
   }, []);
 
+  function handleOnClick() {
+    if (window.innerWidth <= 768) {
+      setActive(false);
+      return;
+    }
+  }
+
   return (
     <nav className='fixed top-0 w-full py-2 lg:py-0 shadow z-30 bg-white lg:flex lg:gap-4'>
       <section className='flex justify-between items-center px-4'>
@@ -78,6 +88,7 @@ export default function MainNavigation() {
         <ul className='space-y-2 lg:space-y-0 py-4 lg:flex lg:gap-4 flex-grow'>
           {links.map((link, index) => (
             <NavigationLink
+              onClick={handleOnClick}
               key={`link-${index}`}
               link={link.link}
               label={link.label}
