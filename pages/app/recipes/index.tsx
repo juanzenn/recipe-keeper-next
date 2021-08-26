@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Head from 'next/head';
 import Text from '@components/common/Text';
@@ -13,13 +13,24 @@ import { getUserRecipe } from '@lib/supabase';
 import { RecipeData } from '@components/AppComponents/RecipesContainer';
 
 import { Recipes as RecipesSomething } from '@components/AppComponents/Recipes';
+import { useUser } from '@auth0/nextjs-auth0';
 
-interface Props {
-  recipes: RecipeData[];
-}
+export default function Recipes() {
+  const { user } = useUser();
+  const [recipes, setRecipes] = useState<RecipeData[]>([]);
 
-export default function Recipes(props: Props) {
-  const { recipes = [] } = props;
+  useEffect(() => {
+    async function fetch() {
+      if (user) {
+        const recipes = await getUserRecipe(
+          user.sub ? user.sub : localStorage.getItem('user-id')
+        );
+        if (recipes) setRecipes(recipes);
+      }
+    }
+
+    fetch();
+  }, [user]);
 
   return (
     <>

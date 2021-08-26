@@ -8,7 +8,7 @@ import {
   ShoppingList as ShoppingListInterface,
   shopRecipe,
 } from '@lib/supabase';
-import { ButtonOutlined } from '@components/common/Button';
+import { Button, ButtonOutlined } from '@components/common/Button';
 import Link from 'next/link';
 import { EyeOpen, TrashCan } from 'akar-icons';
 
@@ -64,13 +64,13 @@ export default function ShoppingList() {
         {shoppingList.length <= 0 ? (
           <section className='w-full text-center'>
             <p className='text-gray-600 mb-2'>{`You don't have any shopping list. Explore more recipes`}</p>
-            <ButtonOutlined className='w-max'>
+            <Button className='w-max'>
               <Link href='/app/discover'>
                 <a className='w-max px-6 py-2 inline-block'>
                   Discover new recipes
                 </a>
               </Link>
-            </ButtonOutlined>
+            </Button>
           </section>
         ) : (
           <section className='grid lg:grid-cols-3 gap-8'>

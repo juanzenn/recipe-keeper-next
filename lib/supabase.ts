@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 
 import { Block } from '@components/AppComponents/Ingredients';
+import { RecipeData } from '@components/AppComponents/RecipesContainer';
 
 const supabaseUrl = String(process.env.NEXT_PUBLIC_SUPABASE_URL);
 const supabaseAnonKey = String(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
@@ -123,7 +124,7 @@ async function getUserRecipe(userId: string | null) {
   try {
     const { data, error } = await supabase
       .from('recipes')
-      .select('id, title, slug, image, tags, cooking-time')
+      .select('id, title, image, tags, cooking-time')
       .eq('author_id', userId);
 
     if (error !== null) {
@@ -135,11 +136,10 @@ async function getUserRecipe(userId: string | null) {
         .from('images')
         .getPublicUrl(recipe.image);
 
-      const newRecipe = {
+      const newRecipe: RecipeData = {
         id: recipe.id,
         title: recipe.title,
-        slug: recipe.slug,
-        image: publicURL,
+        image: publicURL ? publicURL : '',
         tags: recipe.tags,
         'cooking-time': recipe['cooking-time'],
       };
@@ -158,9 +158,7 @@ async function getDiscoveryRecipes(userId: string | null) {
   try {
     const { data, error } = await supabase
       .from('recipes')
-      .select(
-        'id, title, slug, image, tags, cooking-time, author:author_id (name)'
-      )
+      .select('id, title, image, tags, cooking-time')
       .neq('author_id', userId);
 
     if (error !== null) {
@@ -172,14 +170,12 @@ async function getDiscoveryRecipes(userId: string | null) {
         .from('images')
         .getPublicUrl(recipe.image);
 
-      const newRecipe = {
+      const newRecipe: RecipeData = {
         id: recipe.id,
         title: recipe.title,
-        slug: recipe.slug,
-        image: publicURL,
+        image: publicURL ? publicURL : '',
         tags: recipe.tags,
         'cooking-time': recipe['cooking-time'],
-        author: recipe.author,
       };
 
       return newRecipe;
@@ -452,8 +448,7 @@ async function getBookmarkedRecipes(userId: string | null) {
       .select(
         `recipeId (
           id,
-          title,
-          slug,
+          title,          
           tags,
           cooking-time,
           image
@@ -471,11 +466,10 @@ async function getBookmarkedRecipes(userId: string | null) {
           .from('images')
           .getPublicUrl(recipe.recipeId.image);
 
-        const newRecipe = {
+        const newRecipe: RecipeData = {
           id: recipe.recipeId.id,
           title: recipe.recipeId.title,
-          slug: recipe.recipeId.slug,
-          image: publicURL,
+          image: publicURL ? publicURL : '',
           tags: recipe.recipeId.tags,
           'cooking-time': recipe.recipeId['cooking-time'],
         };

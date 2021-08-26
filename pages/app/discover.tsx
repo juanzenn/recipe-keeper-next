@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Head from 'next/head';
 import AppLayout from '@components/layout/AppLayout';
@@ -8,13 +8,24 @@ import Recipes from '@components/AppComponents/Recipes';
 import { RecipeData } from '@components/AppComponents/RecipesContainer';
 
 import { getDiscoveryRecipes } from '@lib/supabase';
+import { useUser } from '@auth0/nextjs-auth0';
 
-interface Props {
-  recipes: RecipeData[];
-}
+export default function Discover() {
+  const { user } = useUser();
+  const [recipes, setRecipes] = useState<RecipeData[]>([]);
 
-export default function Discover(props: Props) {
-  const { recipes } = props;
+  useEffect(() => {
+    async function fetch() {
+      if (user) {
+        const recipes = await getDiscoveryRecipes(
+          user.sub ? user.sub : localStorage.getItem('user-id')
+        );
+        if (recipes) setRecipes(recipes);
+      }
+    }
+
+    fetch();
+  }, [user]);
 
   return (
     <>
@@ -30,16 +41,6 @@ export default function Discover(props: Props) {
       <Recipes recipes={recipes} />
     </>
   );
-}
-
-export async function getServerSideProps() {
-  const recipes = await getDiscoveryRecipes(
-    'google-oauth2|117211086836143771355'
-  );
-
-  return {
-    props: { recipes },
-  };
 }
 
 // eslint-disable-next-line react/display-name

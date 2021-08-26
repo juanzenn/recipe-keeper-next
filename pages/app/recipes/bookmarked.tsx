@@ -1,5 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0';
 import Recipes from '@components/AppComponents/Recipes';
+import { RecipeData } from '@components/AppComponents/RecipesContainer';
 import ViewHeader from '@components/common/ViewHeader';
 import AppLayout from '@components/layout/AppLayout';
 import { getBookmarkedRecipes } from '@lib/supabase';
@@ -7,8 +8,8 @@ import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 
 export default function Bookmarked() {
-  const [recipes, setRecipes] = useState<any>([]);
   const { user } = useUser();
+  const [recipes, setRecipes] = useState<RecipeData[]>([]);
 
   useEffect(() => {
     async function fetch() {
@@ -16,7 +17,7 @@ export default function Bookmarked() {
         const recipes = await getBookmarkedRecipes(
           user.sub ? user.sub : localStorage.getItem('user-id')
         );
-        setRecipes(recipes);
+        if (recipes) setRecipes(recipes);
       }
     }
 
