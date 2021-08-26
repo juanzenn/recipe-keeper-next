@@ -91,7 +91,7 @@ export default function HelpButton() {
 
           <button
             onClick={handleCloseSuccess}
-            className='px-6 py-2 font-semibold tracking-tight text-lg bg-gray-100 hover:bg-gray-200 transition-colors rounded-md shadow'>
+            className='px-6 py-2 font-medium tracking-tight text-lg bg-gray-100 hover:bg-gray-200 transition-colors rounded-md shadow'>
             Close this window
           </button>
         </section>

@@ -107,7 +107,7 @@ export default function IngredientsBlock({
       <input
         type='text'
         placeholder='Block title'
-        className='w-full p-2 mb-4 rounded-sm font-semibold text-lg text-gray-600 placeholder-gray-300 border-b border-gray-300 hover:border-primary-300 focus:border-primary-300 focus:outline-none focus:ring focus:ring-primary-200'
+        className='w-full p-2 mb-4 rounded-sm font-medium text-lg text-gray-600 placeholder-gray-300 border-b border-gray-300 hover:border-primary-300 focus:border-primary-300 focus:outline-none focus:ring focus:ring-primary-200'
         ref={blockTitleRef}
         value={
           edit ? blockOfIngredients.blockTitle : blockTitleRef.current?.value
