@@ -31,21 +31,33 @@ function NavigationItem({
   selected,
   link,
 }: NavigationItemProps) {
+  const [tooltip, setTooltip] = useState(false);
+
   return (
     <Link href={link}>
       <a
         onClick={handleClick}
         className={
           selected
-            ? `h-8 cursor-pointer flex gap-4 items-center text-lg tracking-wide text-primary-500 font-medium`
-            : `h-8 cursor-pointer flex gap-4 items-center text-lg tracking-wide hover:text-primary-500 duration-150`
+            ? `h-8 cursor-pointer flex gap-2 items-center text-primary-500 font-medium`
+            : `h-8 cursor-pointer flex gap-2 items-center hover:text-primary-500 duration-150`
         }>
         {open ? (
           <>
             {icon} {text}
           </>
         ) : (
-          <>{icon}</>
+          <div
+            className='relative z-50'
+            onMouseEnter={() => setTooltip(prev => !prev)}
+            onMouseLeave={() => setTooltip(prev => !prev)}>
+            {icon}
+            {tooltip ? (
+              <div className='absolute w-max -bottom-2 left-0 bg-gray-50 text-gray-400 shadow-sm text-sm px-4 py-2 rounded-full translate-x-8'>
+                {text}
+              </div>
+            ) : null}
+          </div>
         )}
       </a>
     </Link>

@@ -248,11 +248,11 @@ export default function Edit({ recipe, recipeId }: Props) {
 
         <section
           id='buttons'
-          className='col-span-2 flex justify-end gap-6 mt-6'>
+          className='col-span-2 flex items-center justify-end gap-6 mt-6'>
           <GoBack />
           <Button
             type='submit'
-            className='w-max p-4 bg-primary-500 text-white col-span-2'>
+            className='w-max h-[max-content] px-6 py-2 bg-primary-500 text-white'>
             Update recipe
           </Button>
         </section>

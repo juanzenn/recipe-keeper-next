@@ -33,9 +33,16 @@ export default function RecipeCard(props: Props) {
         <Text type='h3' className='text-primary-500'>
           {recipeTitle}
         </Text>
-        <figure className='relative w-full h-56 rounded-lg overflow-hidden shadow'>
+        <figure
+          className='relative w-full h-56 rounded-lg overflow-hidden shadow bg-cover bg-center bg-no-repeat'
+          style={{ backgroundImage: `url(${imageURL})` }}>
           {/* Image */}
-          <Image src={imageURL} layout='fill' alt={recipeTitle} />
+          {/* <Image
+            src={imageURL}
+            width='600px'
+            height='600px'
+            alt={recipeTitle}
+          /> */}
         </figure>
       </header>
       <section className='flex gap-2 mb-3'>

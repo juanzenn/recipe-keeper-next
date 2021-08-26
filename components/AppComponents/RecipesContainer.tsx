@@ -1,7 +1,7 @@
 import { Button, ButtonOutlined } from '@components/common/Button';
-import Text from '@components/common/Text';
+import SmallLoading from '@components/common/SmallLoading';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import RecipeCard from '../common/RecipeCard';
 
 export interface RecipeData {
@@ -21,8 +21,30 @@ export default function RecipesContainer({
   recipes,
   userRecipe = false,
 }: Props) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+
+    let interval: ReturnType<typeof setTimeout>;
+
+    const start = () => {
+      interval = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    };
+
+    start();
+
+    return () => clearTimeout(interval);
+  }, [recipes]);
+
+  if (loading) {
+    return <SmallLoading />;
+  }
+
   return (
-    <section className='grid lg:grid-cols-3 gap-x-4 gap-y-12'>
+    <section className='grid md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-12'>
       {recipes.length > 0 ? (
         recipes.map(recipe => (
           <RecipeCard

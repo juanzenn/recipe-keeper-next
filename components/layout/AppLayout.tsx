@@ -4,6 +4,7 @@ import Text from '@components/common/Text';
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@lib/supabase';
 import HelpButton from './HelpButton';
+import BigLoading from '@components/common/BigLoading';
 
 interface AppLayout {
   children: React.ReactNode;
@@ -67,7 +68,7 @@ export default function AppLayout({ children, view }: AppLayout) {
     }
   }, [user]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <BigLoading />;
 
   if (authError) {
     return (

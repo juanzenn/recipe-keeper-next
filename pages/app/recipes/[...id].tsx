@@ -72,8 +72,10 @@ export default function Recipe({ recipe, recipeId }: Props) {
           {description}
         </Text>
 
-        <figure className='relative w-full h-[100vw] lg:h-[70vh] mb-8 rounded-lg overflow-hidden shadow-lg'>
-          <Image layout='fill' src={imageUrl} alt={slug} />
+        <figure
+          className='relative w-full h-[100vw] lg:h-[70vh] mb-8 rounded-lg overflow-hidden shadow-lg bg-cover bg-center bg-no-repeat'
+          style={{ backgroundImage: `url(${imageUrl})` }}>
+          {/* <Image layout='fill' src={imageUrl} alt={slug} /> */}
         </figure>
 
         <section className='grid gap-8 lg:grid-cols-2 lg:gap-4 bg-white shadow p-6 w-full lg:w-3/4 mx-auto mb-8'>

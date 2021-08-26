@@ -27,7 +27,6 @@ export default function Recipes({
 
   const [explorerRecipes, setExplorerRecipes] = useState<RecipeData[]>(recipes);
   const [searchedRecipes, setSerchedRecipes] = useState<RecipeData[]>(recipes);
-  const [loading, setLoading] = useState(true);
 
   const searchValue = useRef<HTMLInputElement>(null);
 
@@ -55,6 +54,13 @@ export default function Recipes({
   function updateRecipes(filters: string[]) {
     if (filters.length <= 0) {
       setExplorerRecipes(recipes);
+      setSerchedRecipes(() => {
+        if (searchValue.current?.value) {
+          searchRecipes(recipes);
+        }
+        return recipes;
+      });
+
       return;
     }
 
@@ -68,6 +74,7 @@ export default function Recipes({
     });
 
     setExplorerRecipes(afterFilter);
+    setSerchedRecipes(afterFilter);
   }
 
   function clearFilters() {
@@ -75,32 +82,41 @@ export default function Recipes({
     setExplorerRecipes(recipes);
   }
 
-  // FIX THIS!!!
-  function searchRecipeByName(name: string | undefined | null) {
-    if (!name) {
-      setSerchedRecipes(recipes);
+  function searchRecipes(arrayToSearch: RecipeData[] = explorerRecipes) {
+    if (!searchValue.current?.value) {
+      setSerchedRecipes(explorerRecipes);
       return;
     }
 
-    const search = new RegExp(name, 'ig');
+    if (searchValue.current?.value) {
+      let matchTo = searchValue.current?.value;
 
-    const foundRecipes = recipes.filter(recipe => {
-      if (search.test(recipe.title)) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+      const search = new RegExp(matchTo, 'ig');
 
-    setSerchedRecipes(foundRecipes);
+      const foundRecipes = arrayToSearch.filter(recipe => {
+        if (search.test(recipe.title)) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      setSerchedRecipes(foundRecipes);
+    }
   }
+
+  // useEffect(() => {
+  //   searchRecipes();
+  // }, []);
 
   useEffect(() => {
     updateRecipes(filters);
   }, [filters]);
 
+  // This only happens once
   useEffect(() => {
     setExplorerRecipes(recipes);
+    setSerchedRecipes(recipes);
   }, [recipes]);
 
   return (
@@ -121,6 +137,7 @@ export default function Recipes({
             </ButtonSecondary>
           </NavigationContainer>
         ) : null}
+
         <NavigationContainer className='h-16 w-full py-2'>
           <div className='w-full flex items-center border-2 border-white rounded-md pl-2 pr-4 py-1'>
             <input
@@ -128,7 +145,7 @@ export default function Recipes({
               type='text'
               placeholder={'Search...'}
               ref={searchValue}
-              onChange={() => searchRecipeByName(searchValue.current?.value)}
+              onChange={() => searchRecipes()}
             />
             <Search size={20} />
           </div>
@@ -162,7 +179,14 @@ export default function Recipes({
         </section>
       ) : null}
 
-      <RecipesContainer recipes={explorerRecipes} userRecipe={userRecipes} />
+      <RecipesContainer
+        recipes={
+          JSON.stringify(explorerRecipes) === JSON.stringify(searchedRecipes)
+            ? explorerRecipes
+            : searchedRecipes
+        }
+        userRecipe={userRecipes}
+      />
     </section>
   );
 }
