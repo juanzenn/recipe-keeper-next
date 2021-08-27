@@ -2,44 +2,40 @@
 
 ![Header](https://user-images.githubusercontent.com/31358977/131184183-233fe7c0-e725-4dc2-9cb6-c7537809ee00.png)
 
-Recipe Keeper **keeps** your recipes in the same place. Share your most important recipes with the world, find them any time, and create shopping lists. Discover the recipes from around the world, bookmarked it and cook it later!
+Recipe Keeper **keeps** your recipes in the same place. Share your most important recipes with the world, find them any time, and create shopping lists. Discover the recipes from around the globe, bookmarked them, and cook them later!
 
 >This project was created with the help of the template next template: [batteries-includes-nextjs](https://github.com/antoniolofiego/Batteries-Included-Next.js)
 >
 >**Author:** [Antonio Lo Fiego](https://github.com/antoniolofiego/)
 
 ## Why Recipe Keeper?
-I love to cook and bake bread. One of the problems I face **everytime** I want to make something new is finding recipes. Usually **low quality, with a brick of text, ads and a lot fluf**, only to make a simple recipe.
+I love to cook and bake bread. One of the problems I face ** every time** I want to make something new is finding recipes. Usually **low quality, with a brick of text, ads, and a lot of garbage**, only to make a simple recipe.
 
-**Hashnode's Hackaton** made me able to materialize this dream. I wanted a place for people to share and gather recipes, in a common layout and confort, so they don't have to suffer finding the ingredients or instructions.
+**Hashnode's Hackaton** made me able to materialize this dream. I wanted people to share and gather recipes in a similar layout and comfort. That way, they don't suffer finding the ingredients or instructions.
 
 ## Technology Stack
- Creating this app wasn't easy. A month of hard work and the project is just starting, since there's ton of possibilities to expand the idea further. The technology I choose helped with an easy, fast development.
+ Creating this app wasn't easy, a month of hard work. There's a ton of possibilities to expand the idea further. The technology I choose helped with an easy, fast development.
 
 ### Next.js + TypeScript
-My first framwork to learn was React. Next.js just take React to the literal **next level.** Super quick to set up, a nice and simple folder routing and a massive community. 
+My first framework to learn was React. Next.js takes React to the literal **next level.** Super quick to set up, an astonishing and easy folder routing, and a massive community. 
 
-One of the key selling points of Next is its ability to perform Server Side Rendering and Static Sites at convenience. 
-
-For this particular project, **TypeScript** worked flawlesly, helped with a lot of the type errors you encounter in normal JavaScript development. There's no real reason why one should stick to Vanilla JavaScript when TypeScript makes development so easy and fast.
+**TypeScript** worked flawlessly. It helped with a lot of the type errors you encounter in normal JavaScript development. There's no real reason to stick to Vanilla JavaScript when TypeScript makes development so easy and fast.
 
 ### TailwindCSS
-Tailwind is a pleasure to use. One of the best *(if not the best)* CSS frameworks out there. The productivity of building applications and reusable pieces with Tailwind is massive. Not external files, CSS-in-JS with utility classes are everything you need. 
+Tailwind is a pleasure to use. One of the best *(if not the best)* CSS frameworks out there. The productivity of building applications and reusable pieces with Tailwind is massive. No external files, CSS-in-JS with utility classes are everything you need. 
 
-The development process went with no problems, and thanks to their new JIT mode you can create even more flexible interfaces. 
+The development process went with no problems, and thanks to their new JIT mode allows us to create even more flexible interfaces. 
 
 ### Supabase
-The backend structure is powered by Supabase, a solution for backend as a service. Their SDK is fantastic, using a PostgreSQL database it allows to build almost anything. Fast response time and unlimited API calls.
-
-Another important part of the backend is Storage (buckets) for the images of every recipe. Supabase makes both process easy to set up.
+The backend structure works on Supabase, a solution for the backend as a service. Their SDK is fantastic. They use a PostgreSQL database that allows one to build almost anything. Fast response time and unlimited API calls.
 
 ### Auth0
-As a requirement for the Hackaton, Auth0 secures our users and their information. It's really easy to set up, and allows multiple services like Google or Github for authentication. 
+As a requirement for the Hackaton, Auth0 secures our users and their information. It's fast to set up and allows multiple services like Google or Github for authentication. 
 
-Working with Auth0 was a no-brainer. I have to say they manage users in a flawless way. Combine with Next.js API routes, you only need to setup one file and your Authentication system is complete. Hands down an amazing service.
+Working with Auth0 was a no-brainer. I have to say they perfectly manage users. Combine with Next.js API routes, you only need to set up one file, and your Authentication system is complete, hands down fantastic service.
 
 ### Hosted and Deployed on Vercel
-Vercel has been my only deployment platform on 2021. Their UI is just fantastic, give previews for PR and built-in analytics.
+Vercel has been my only deployment platform in 2021. Just the best platform with the best community.
 
 ## Challenges and Features
 This application works like a CMS, were you can create something similar like a blog post for recipes.
