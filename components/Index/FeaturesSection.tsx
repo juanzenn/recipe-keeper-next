@@ -53,7 +53,7 @@ export default function FeaturesSection() {
         A ton of recipes, cookbooks and blogs. Is really tiresome, and you want
         to eat. Forget about all that with Recipe Keeper.
       </Text>
-      <section className='py-4 w-full lg:w-10/12 mx-auto px-4 grid lg:grid-cols-3 gap-8'>
+      <section className='py-4 w-full lg:w-10/12 mx-auto px-4 grid lg:grid-cols-3 gap-12'>
         {items.map(item => (
           <Feature
             key={item.id}

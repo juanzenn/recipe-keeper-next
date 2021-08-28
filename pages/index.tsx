@@ -10,6 +10,8 @@ import MainNavigation from '@components/Index/MainNavigation';
 import FeaturesSection from '@components/Index/FeaturesSection';
 import ReviewSection from '@components/Index/ReviewSection';
 import { getReviews, Review } from '@lib/supabase';
+import BigLoading from '@components/common/BigLoading';
+import IndexIllustration from '@components/common/IndexIllustration';
 
 interface Props {
   items: Review[];
@@ -18,7 +20,7 @@ interface Props {
 export default function Index({ items }: Props) {
   const { error, isLoading } = useUser();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <BigLoading />;
   if (error) return <div>{error.message}</div>;
 
   return (
@@ -47,7 +49,7 @@ export default function Index({ items }: Props) {
             </Link>
           </Button>
 
-          <figure className="'w-full h-[70vh] rounded-lg bg-gray-100 shadow-lg"></figure>
+          <IndexIllustration />
         </header>
 
         <FeaturesSection />

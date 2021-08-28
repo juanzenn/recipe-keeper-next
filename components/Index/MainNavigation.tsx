@@ -62,7 +62,7 @@ export default function MainNavigation() {
 
   return (
     <nav className='fixed top-0 w-full py-2 lg:py-0 shadow z-30 bg-white lg:flex lg:gap-4'>
-      <section className='flex justify-between items-center px-4'>
+      <section className='flex justify-between items-center px-8'>
         <figure className='relative inline-block rounded-full'>
           <Image
             src='/icon.png'
@@ -96,7 +96,7 @@ export default function MainNavigation() {
           ))}
         </ul>
 
-        <section className='flex flex-col-reverse lg:flex-row gap-4 px-4 w-max'>
+        <section className='flex flex-col-reverse lg:flex-row gap-4 px-4 lg:px-8 w-max'>
           {user ? (
             <Button>
               <Link href='/app'>
