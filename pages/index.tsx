@@ -26,7 +26,45 @@ export default function Index({ items }: Props) {
   return (
     <>
       <Head>
-        <title>Recipe Keeper</title>
+        <title>Recipe Keeper - Share and discover recipes</title>
+        <meta
+          name='title'
+          content='Recipe Keeper - Share and discover recipes'
+        />
+        <meta
+          name='description'
+          content='Save your recipes, find new plates and dishes and share yours with the world.'
+        />
+
+        <meta property='og:type' content='website' />
+        <meta
+          property='og:url'
+          content='https://recipe-keeper-kohl.vercel.app/'
+        />
+        <meta
+          property='og:title'
+          content='Recipe Keeper - Share and discover recipes'
+        />
+        <meta
+          property='og:description'
+          content='Save your recipes, find new plates and dishes and share yours with the world.'
+        />
+        <meta property='og:image' content='/header.png' />
+
+        <meta property='twitter:card' content='summary_large_image' />
+        <meta
+          property='twitter:url'
+          content='https://recipe-keeper-kohl.vercel.app/'
+        />
+        <meta
+          property='twitter:title'
+          content='Recipe Keeper - Share and discover recipes'
+        />
+        <meta
+          property='twitter:description'
+          content='Save your recipes, find new plates and dishes and share yours with the world.'
+        />
+        <meta property='twitter:image' content='/header.png' />
       </Head>
       <main>
         <MainNavigation />
