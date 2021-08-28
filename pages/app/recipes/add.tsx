@@ -3,16 +3,20 @@ import ViewHeader from '@components/common/ViewHeader';
 import AppLayout from '@components/layout/AppLayout';
 import Ingredients from '@components/AppComponents/Ingredients';
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useNumberInput, useTextInput } from '@hooks/formHooks';
 import TagSelector from '@components/AppComponents/TagSelector';
 import { Button } from '@components/common/Button';
+import {
+  NotificationError,
+  NotificationSuccess,
+} from '@components/common/Notification';
 
 import { Block as IngredientsInterface } from '@components/AppComponents/Ingredients';
 
 import { addRecipe, Recipe, uploadImage } from '@lib/supabase';
-import { createRandomID, strToSlug } from '@lib/randomid';
+import { checkForm, createRandomID, strToSlug } from '@lib/randomid';
 import GoBack from '@components/common/GoBack';
 
 export default function Add() {
@@ -25,8 +29,20 @@ export default function Add() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [picture, setPicture] = useState<any>('');
 
+  const [uploading, setUploading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+    setUploading(true);
+
+    if (!picture) {
+      setError(true);
+      setErrorMessage('Add an image');
+      return;
+    }
 
     const newId = createRandomID();
     const imageName = `${newId}.${picture.name.split('.').pop()}`;
@@ -45,14 +61,40 @@ export default function Add() {
       instructions: instructions,
     };
 
+    const message = checkForm(recipe);
+
+    if (message) {
+      const newMessage = message.message;
+
+      if (newMessage) {
+        setError(true);
+        setErrorMessage(newMessage);
+        return;
+      }
+    }
+
     const pictureData = await uploadImage(picture, imageName);
     const recipeData = await addRecipe(recipe);
 
     if (pictureData && recipeData) {
-      alert('Your recipe was added successfully.');
-      window.location.href = `/app/recipes`;
+      setSuccess(true);
+    } else {
+      setError(true);
+      setErrorMessage('There was an error on the server...');
     }
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (success) {
+        window.location.href = `/app/recipes`;
+      }
+
+      setError(false);
+      setSuccess(false);
+      setUploading(false);
+    }, 1000);
+  }, [success, error]);
 
   function handleImageUpload(event: any) {
     const file = event.target.files[0];
@@ -82,8 +124,6 @@ export default function Add() {
       <form
         className='lg:grid lg:grid-cols-2 lg:gap-8 space-y-8 lg:space-y-0'
         onSubmit={handleSubmit}>
-        {/* Recipe name */}
-
         <div className='w-full space-y-2'>
           <Input
             value={recipeName}
@@ -106,13 +146,11 @@ export default function Add() {
         </div>
 
         <div className='w-full'>
-          {/* Recipe image */}
           <label className='inline-block mb-1 font-bold tracking-wide text-primary-600'>
             Cover image
           </label>
           <input
             accept={'.png,.jpg'}
-            required
             type='file'
             onChange={e => handleImageUpload(e)}
             className='w-full bg-transparent text-gray-800 mb-2'
@@ -123,7 +161,6 @@ export default function Add() {
         </div>
 
         <div className='col-span-2 space-y-2'>
-          {/* Recipe description */}
           <Input
             value={description}
             onChange={event => {
@@ -139,7 +176,6 @@ export default function Add() {
         </div>
 
         <div className='space-y-6'>
-          {/* Recipe time */}
           <div className='space-y-2'>
             <Input
               value={time}
@@ -161,7 +197,6 @@ export default function Add() {
             </p>
           </div>
 
-          {/* Recipe services */}
           <Input
             value={servings}
             onChange={event => {
@@ -174,18 +209,15 @@ export default function Add() {
         </div>
 
         <article>
-          {/* Tags */}
           <TagSelector
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}
           />
         </article>
 
-        {/* Ingredients */}
         <Ingredients setIngredients={setIngredients} />
 
         <article className='space-y-2'>
-          {/* Instructions */}
           <Input
             value={instructions}
             onChange={event => {
@@ -204,13 +236,20 @@ export default function Add() {
           id='buttons'
           className='col-span-2 flex items-center justify-end gap-6 mt-6'>
           <GoBack />
-          <Button
+          <button
+            disabled={uploading}
             type='submit'
-            className='w-max h-[max-content] px-6 py-2 bg-primary-500 text-white col-span-2'>
+            className='w-max h-[max-content] px-6 py-2 bg-primary-500 hover:bg-primary-600 rounded-md text-white col-span-2 transition-colors disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400'>
             Add recipe
-          </Button>
+          </button>
         </section>
       </form>
+
+      {success ? (
+        <NotificationSuccess message='Successfully uploaded! You are being redirected...' />
+      ) : null}
+
+      {error ? <NotificationError message={errorMessage} /> : null}
     </>
   );
 }

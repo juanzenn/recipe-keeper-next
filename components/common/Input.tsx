@@ -22,7 +22,7 @@ export default function Input({
   label,
   options,
   value,
-  required = true,
+  required = false,
   onChange,
 }: Props) {
   const styles =
