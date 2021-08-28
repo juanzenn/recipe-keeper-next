@@ -16,7 +16,7 @@ You can visit the production version of this website
 Made in **[TypeScript](https://www.typescriptlang.org/)**
 
 ### For the Front End: 
-* [Next.js](htttps://nextjs.com)
+* [Next.js](https://nextjs.com)
 * [TailwindCSS](https://tailwindcss.com) 
 
 ### For the Back End:
